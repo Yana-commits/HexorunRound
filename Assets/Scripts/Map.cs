@@ -9,8 +9,8 @@ public class Map : MonoBehaviour
     int width = 20;
     int height = 20;
 
-    float oddRowXOffset = 0.21f;
-    float zOffset = 0.46f;
+    float oddRowXOffset = 0.5f;
+    float zOffset = 0.45f;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class Map : MonoBehaviour
                 {
                     xPos += oddRowXOffset;
                 }
-                Instantiate(hexPrefab, new Vector3(xPos*1.5f, 0, y * zOffset*1.2f), Quaternion.identity);
+                Instantiate(hexPrefab, new Vector3(xPos*1.53f, 0, y * zOffset), Quaternion.identity);
             }
         }
     }
