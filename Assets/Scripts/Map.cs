@@ -7,10 +7,10 @@ public class Map : MonoBehaviour
     public GameObject hexPrefab;
 
     int width = 20;
-    int height = 20;
+    int height = 40;
 
-    float oddRowXOffset = 0.5f;
-    float zOffset = 0.45f;
+    float xOffset = 1.505f;
+    float zOffset = 0.434f;
 
     void Start()
     {
@@ -28,13 +28,17 @@ public class Map : MonoBehaviour
         {
             for (int y = 0; y <height; y++)
             {
-                float xPos = x;
+                float xPos = x*xOffset;
 
                 if (y % 2 == 1)
                 {
-                    xPos += oddRowXOffset;
+                    xPos += xOffset/2f;
                 }
-                Instantiate(hexPrefab, new Vector3(xPos*1.53f, 0, y * zOffset), Quaternion.identity);
+              GameObject hex_go =  (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, y*zOffset ), Quaternion.identity);
+
+                hex_go.name = "Hex_" + x + "_" + y;
+                hex_go.GetComponent<Hex>();
+                hex_go.transform.SetParent(this.transform);
             }
         }
     }
