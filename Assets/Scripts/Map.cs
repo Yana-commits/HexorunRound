@@ -6,8 +6,8 @@ public class Map : MonoBehaviour
 {
     public GameObject hexPrefab;
 
-    int width = 20;
-    int height = 40;
+    int width = 16;
+    int height = 20;
 
     float xOffset = 1.505f;
     float zOffset = 0.434f;

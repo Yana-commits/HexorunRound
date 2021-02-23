@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Hex : MonoBehaviour
 {
-    int[] points = new int[3] { 0, 1, 2 };
+   float[] points = new float[3] { 0, 0.5f, 1 };
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -26,8 +26,12 @@ public class Hex : MonoBehaviour
 
     public void Move()
     {
-        int y = points[Random.Range(0,3)] ;
+        float y = points[Random.Range(0,3)] ;
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
         transform.DOMove(endPosition, 2);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }

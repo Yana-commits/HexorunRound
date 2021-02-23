@@ -1,11 +1,23 @@
 fileFormatVersion: 2
 guid: 6d02cd5cedad87a46a420ac837a1fcd8
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
     second: Take 001
+  - first:
+      74: 5522812681064789136
+    second: Run
+  - first:
+      74: 4854180139978558704
+    second: Victory
+  - first:
+      74: 5357320603224000655
+    second: Loose
+  - first:
+      74: -5405653242291790180
+    second: Idel
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -26,18 +38,163 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 388
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
+    - serializedVersion: 16
+      name: Victory
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 113
+      lastFrame: 273
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
+    - serializedVersion: 16
+      name: Loose
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 300
+      lastFrame: 388
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
+    - serializedVersion: 16
+      name: Idel
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 290
+      lastFrame: 292
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0.9
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -69,7 +226,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
@@ -80,7 +237,122 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Character_anim(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Character_NewUvs1
+      parentName: Character_anim(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bake:Root_M
+      parentName: Character_anim(Clone)
+      position: {x: -0.0026833587, y: 0.4096059, z: -0.0119107785}
+      rotation: {x: 0.4752505, y: -0.5235809, z: -0.4752505, w: 0.5235809}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Bake:Hip_R
+      parentName: Bake:Root_M
+      position: {x: 0.023608034, y: -0.003765871, z: -0.05166032}
+      rotation: {x: -0.008511186, y: 0.99202174, z: 0.03766519, w: -0.1200079}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Bake:Knee_R
+      parentName: Bake:Hip_R
+      position: {x: -0.17374012, y: 0, z: -5.3290707e-16}
+      rotation: {x: 0.000000045052722, y: -0, z: 0.096441984, w: 0.9953386}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000005}
+    - name: Bake:Ankle_R
+      parentName: Bake:Knee_R
+      position: {x: -0.18999317, y: 6.938894e-17, z: 2.6645354e-16}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Bake:Spine1_M
+      parentName: Bake:Root_M
+      position: {x: -0.12709656, y: 1.44329e-16, z: -3.608225e-17}
+      rotation: {x: -0, y: -0, z: -0.020879509, w: 0.999782}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Bake:Chest_M
+      parentName: Bake:Spine1_M
+      position: {x: -0.111517504, y: -2.2204462e-17, z: -3.885781e-17}
+      rotation: {x: -0.000000029173568, y: -0.000000030418086, z: -0.100557305, w: 0.9949313}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Bake:Scapula_R
+      parentName: Bake:Chest_M
+      position: {x: -0.04249941, y: 0.04176523, z: -0.0218268}
+      rotation: {x: 0.37506273, y: 0.7188836, z: 0.23225768, w: -0.5372064}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Bake:Shoulder_R
+      parentName: Bake:Scapula_R
+      position: {x: -0.11716283, y: 3.1086247e-16, z: -9.547918e-16}
+      rotation: {x: 0.017161055, y: 0.15010355, z: -0.05286684, w: 0.9871066}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000002}
+    - name: Bake:Elbow_R
+      parentName: Bake:Shoulder_R
+      position: {x: -0.16840279, y: -6.8278717e-16, z: 0}
+      rotation: {x: 0.0013621281, y: 0.007586031, z: -0.019170577, w: 0.9997865}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1}
+    - name: Bake:Wrist_R
+      parentName: Bake:Elbow_R
+      position: {x: -0.13214004, y: 1.776357e-16, z: -6.2172494e-16}
+      rotation: {x: -0.0031478645, y: 0.031855017, z: 0.0272613, w: 0.9991157}
+      scale: {x: 1.0000004, y: 0.99999994, z: 1.0000005}
+    - name: Bake:joint1_R
+      parentName: Bake:Wrist_R
+      position: {x: -0.047261048, y: 3.552714e-16, z: 2.6645354e-16}
+      rotation: {x: -0, y: -0, z: -2.2555469e-10, w: 1}
+      scale: {x: 1.0000004, y: 1, z: 1.0000004}
+    - name: Bake:Neck_M
+      parentName: Bake:Chest_M
+      position: {x: -0.09961719, y: 1.9984013e-16, z: 1.8318681e-16}
+      rotation: {x: -0.000000027786616, y: -0.000000031690078, z: -0.056043077, w: -0.9984284}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000004}
+    - name: Bake:Head_M
+      parentName: Bake:Neck_M
+      position: {x: -0.21653952, y: -2.6645354e-16, z: -3.2196466e-16}
+      rotation: {x: -0, y: -0, z: -8.8055994e-16, w: 1}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Bake:Scapula_L
+      parentName: Bake:Chest_M
+      position: {x: -0.04249941, y: 0.04176523, z: 0.0218268}
+      rotation: {x: -0.7188836, y: 0.3750628, z: -0.5372065, w: -0.23225765}
+      scale: {x: 1.0000005, y: 0.99999994, z: 1.0000002}
+    - name: Bake:Shoulder_L
+      parentName: Bake:Scapula_L
+      position: {x: 0.11716283, y: -2.6645354e-16, z: 8.437696e-16}
+      rotation: {x: 0.017161006, y: 0.15010345, z: -0.05286696, w: 0.9871066}
+      scale: {x: 1.0000007, y: 1.0000005, z: 1.000001}
+    - name: Bake:Elbow_L
+      parentName: Bake:Shoulder_L
+      position: {x: 0.16840279, y: -1.11022296e-16, z: 1.776357e-16}
+      rotation: {x: 0.0013620533, y: 0.0075860303, z: -0.01917049, w: 0.9997865}
+      scale: {x: 1.0000004, y: 0.99999994, z: 0.99999994}
+    - name: Bake:Wrist_L
+      parentName: Bake:Elbow_L
+      position: {x: 0.13214004, y: 7.105428e-16, z: 2.6645354e-16}
+      rotation: {x: -0.0031477811, y: 0.031855002, z: 0.02726139, w: 0.9991157}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000002}
+    - name: Bake:joint1_L
+      parentName: Bake:Wrist_L
+      position: {x: 0.047261048, y: -6.661338e-16, z: -3.1086247e-16}
+      rotation: {x: -2.3283062e-10, y: -0, z: 0.0000000026702762, w: 1}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000004}
+    - name: Bake:Hip_L
+      parentName: Bake:Root_M
+      position: {x: 0.023608034, y: -0.003765871, z: 0.05166032}
+      rotation: {x: 0.99202174, y: 0.008511215, z: 0.12000787, w: 0.037665218}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: Bake:Knee_L
+      parentName: Bake:Hip_L
+      position: {x: 0.17374012, y: 6.6613384e-17, z: 6.661338e-16}
+      rotation: {x: -0.000000018626451, y: -0.00000003297464, z: -0.096441954, w: -0.9953387}
+      scale: {x: 1.0000004, y: 0.99999994, z: 1.0000001}
+    - name: Bake:Ankle_L
+      parentName: Bake:Knee_L
+      position: {x: 0.18999317, y: -1.0894063e-16, z: 6.6613384e-17}
+      rotation: {x: -0, y: -0, z: -6.142005e-16, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000002}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -88,16 +360,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 5
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
