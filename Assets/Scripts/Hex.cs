@@ -5,33 +5,60 @@ using DG.Tweening;
 
 public class Hex : MonoBehaviour
 {
-   float[] points = new float[3] { 0, 0.5f, 1 };
+    float[] points = new float[10] {0,0,0,0,0,0,0, 0, 0.5f, 1 };
 
     private Vector3 startPosition;
     private Vector3 endPosition;
-  
+    private bool permission = true;
+    public bool end = true;
+
     void Start()
     {
+        
         StartCoroutine(HexBehavor());
+
     }
 
     private IEnumerator HexBehavor()
     {
-        while (true)
+        while (permission)
         {
-            yield return new WaitForSeconds(5);
-            Move();
+            if (!end)
+            {   
+                break;
+            }
+            
+            if (permission)
+            {
+                Move();
+            }
+            yield return new WaitForSeconds(10);
         }
     }
 
     public void Move()
     {
-        float y = points[Random.Range(0,3)] ;
+        float y = points[Random.Range(0, 10)];
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
         transform.DOMove(endPosition, 2);
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            if (!end)
+            {
+                Controller.Instance.Victory();
+               
+            }
+                permission = false;
+            //Debug.Log($"{gameObject.name}");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        permission = true;
+        StartCoroutine(HexBehavor());
+        //Debug.Log($"out {gameObject.name}");
     }
 }
