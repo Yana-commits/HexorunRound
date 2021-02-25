@@ -21,6 +21,7 @@ public class Controller : MonoBehaviour
     public event WinDelegate Win;
     public delegate void LooseDelegate();
     public event LooseDelegate Loose;
+    private bool stopTime = true;
 
     private void Awake()
     {
@@ -35,22 +36,34 @@ public class Controller : MonoBehaviour
     }
     void Start()
     {
-        
+       
     }
 
-   
     void FixedUpdate()
     {
-       gameTime = gameTime -1 * Time.deltaTime;
-
-        if (gameTime <= 0)
+        if (stopTime)
         {
-           Debug.Log("Loose");
-           Loose();
+            gameTime = gameTime - 1 * Time.deltaTime;
+
+            HUD.Instance.UpdateScoreValue(gameTime);
+
+            if (gameTime <= 0)
+            {
+                Debug.Log("Loose");
+                Loose();
+                gameTime = 0;
+            }
         }
     }
+   
     public void Victory()
     {
         Win();
+        stopTime = false;
+    }
+
+    public void Loosing()
+    {
+    
     }
 }
