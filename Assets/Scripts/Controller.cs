@@ -49,7 +49,6 @@ public class Controller : MonoBehaviour
 
             if (gameTime <= 0)
             {
-                Debug.Log("Loose");
                 Loose();
                 gameTime = 0;
             }
@@ -60,10 +59,5 @@ public class Controller : MonoBehaviour
     {
         Win();
         stopTime = false;
-    }
-
-    public void Loosing()
-    {
-    
     }
 }
