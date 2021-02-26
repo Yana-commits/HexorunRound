@@ -15,12 +15,12 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        Init();
+     
     }
 
     public void Init()
     {
-        int pointX = Random.Range(4, 8);
+        int pointX = Random.Range(1, 2);
         int pointY = Random.Range(4, 15);
         for (int x = 0; x < width; x++)
         {

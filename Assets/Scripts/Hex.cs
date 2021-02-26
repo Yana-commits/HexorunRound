@@ -7,14 +7,16 @@ public class Hex : MonoBehaviour
 {
     float[] points = new float[10] {0,0,0,0,0,0,0, 0, 0.5f, 1 };
 
+
     private Vector3 startPosition;
     private Vector3 endPosition;
     private bool permission = true;
     public bool end = true;
+    private float changeTime;
 
     void Start()
     {
-        
+        changeTime = HUD.Instance.changesTime.value;
         StartCoroutine(HexBehavor());
 
     }
@@ -32,7 +34,7 @@ public class Hex : MonoBehaviour
             {
                 Move();
             }
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(changeTime);
         }
     }
 
@@ -40,7 +42,7 @@ public class Hex : MonoBehaviour
     {
         float y = points[Random.Range(0, 10)];
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
-        transform.DOMove(endPosition, 2);
+        transform.DOMove(endPosition, 0.5f);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -61,4 +63,5 @@ public class Hex : MonoBehaviour
         StartCoroutine(HexBehavor());
         //Debug.Log($"out {gameObject.name}");
     }
+
 }

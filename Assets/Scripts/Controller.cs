@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+public enum GameState { doPlay, doNotPlay };
 public class Controller : MonoBehaviour
 {
     private static Controller instance;
@@ -14,7 +16,7 @@ public class Controller : MonoBehaviour
             return instance;
         }
     }
-
+    
     public float gameTime;
 
     public delegate void WinDelegate();
@@ -22,6 +24,13 @@ public class Controller : MonoBehaviour
     public delegate void LooseDelegate();
     public event LooseDelegate Loose;
     private bool stopTime = true;
+    [SerializeField]
+    private Map map;
+
+    [SerializeField]
+    private Player player;
+
+    public GameState gameState = GameState.doNotPlay;
 
     private void Awake()
     {
@@ -36,28 +45,39 @@ public class Controller : MonoBehaviour
     }
     void Start()
     {
-       
+        gameTime = HUD.Instance.timer.value;
     }
 
     void FixedUpdate()
     {
-        if (stopTime)
+        if (gameState == GameState.doPlay)
         {
-            gameTime = gameTime - 1 * Time.deltaTime;
-
-            HUD.Instance.UpdateScoreValue(gameTime);
-
-            if (gameTime <= 0)
+            if (stopTime)
             {
-                Loose();
-                gameTime = 0;
+                gameTime = gameTime - 1 * Time.deltaTime;
+
+                HUD.Instance.UpdateScoreValue(gameTime);
+
+                if (gameTime <= 0)
+                {
+                    Loose();
+                    gameTime = 0;
+                }
             }
         }
+       
+    }
+    public void Game()
+    {
+        gameState = GameState.doPlay;
+        map.Init();
+        player.Init();
     }
    
     public void Victory()
     {
         Win();
         stopTime = false;
+        gameState = GameState.doNotPlay;
     }
 }

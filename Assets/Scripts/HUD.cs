@@ -16,6 +16,18 @@ public class HUD : MonoBehaviour
 
     }
 
+    public Slider timer;
+
+    public Slider playerSpeed;
+
+    public Slider changesTime;
+
+    public Button startButton;
+
+    public GameObject startPanel;
+
+    public GameObject gameplayPanel;
+
     public Text timeText;
     private void Awake()
     {
@@ -24,6 +36,7 @@ public class HUD : MonoBehaviour
     }
     void Start()
     {
+        startButton.onClick.AddListener(() => StartGame());
         
     }
 
@@ -36,5 +49,12 @@ public class HUD : MonoBehaviour
     public void UpdateScoreValue(float value)
     {
         timeText.text = Mathf.Round(value).ToString();
+    }
+
+    private void StartGame()
+    {
+        startPanel.SetActive(false);
+        gameplayPanel.SetActive(true);
+        Controller.Instance.Game();
     }
 }

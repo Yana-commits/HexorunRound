@@ -110,6 +110,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49af69bb52deed04bbedfabbc1fbb84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neighbors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  end: 1
 --- !u!54 &4052352603810499495
 Rigidbody:
   m_ObjectHideFlags: 0
