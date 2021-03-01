@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     public float xMin, xMax, zMin, zMax;
     void Start()
     {
-       
 
+        Init();
     }
 
     void FixedUpdate()
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         speed = HUD.Instance.playerSpeed.value;
 
-        transform.position = new Vector3(21f, 0.03f, 3.48f);
+        //transform.position = new Vector3(21f, 0.03f, 3.48f);
         Controller.Instance.Win += Win;
         Controller.Instance.Loose += Loose;
 

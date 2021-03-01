@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
    
     void Update()
     {
+        
         Vector3 target = new Vector3
              (
             Mathf.Clamp(player.position.x - offset.x, MinX, MaxX),

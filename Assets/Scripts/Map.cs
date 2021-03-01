@@ -15,7 +15,7 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-     
+        Init();
     }
 
     public void Init()

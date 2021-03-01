@@ -18,7 +18,6 @@ public class Hex : MonoBehaviour
     {
         changeTime = HUD.Instance.changesTime.value;
         StartCoroutine(HexBehavor());
-
     }
 
     private IEnumerator HexBehavor()

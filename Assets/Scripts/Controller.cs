@@ -24,11 +24,13 @@ public class Controller : MonoBehaviour
     public delegate void LooseDelegate();
     public event LooseDelegate Loose;
     private bool stopTime = true;
-    [SerializeField]
-    private Map map;
+    //[SerializeField]
+    //private Map map;
 
+    //[SerializeField]
+    //private Player player;
     [SerializeField]
-    private Player player;
+    private CameraController camera;
 
     public GameState gameState = GameState.doNotPlay;
 
@@ -65,13 +67,16 @@ public class Controller : MonoBehaviour
                 }
             }
         }
-       
     }
     public void Game()
     {
         gameState = GameState.doPlay;
-        map.Init();
-        player.Init();
+        //map.Init();
+        //player.Init();
+        Vector3 fieldPosition = Vector3.zero;
+        var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(21f, 0.03f, 3.48f), Quaternion.identity);
+        camera.player = player.transform;
     }
    
     public void Victory()
