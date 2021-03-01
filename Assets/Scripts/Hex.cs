@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Hex : MonoBehaviour
 {
-    float[] points = new float[10] {0,0,0,0,0,0,0, 0, 0.5f, 1 };
+    float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
 
 
     private Vector3 startPosition;
@@ -16,8 +16,8 @@ public class Hex : MonoBehaviour
 
     void Start()
     {
-        changeTime = HUD.Instance.changesTime.value;
-        StartCoroutine(HexBehavor());
+        //changeTime = HUD.Instance.changesTime.value;
+        //StartCoroutine(HexBehavor());
     }
 
     private IEnumerator HexBehavor()
@@ -25,10 +25,10 @@ public class Hex : MonoBehaviour
         while (permission)
         {
             if (!end)
-            {   
+            {
                 break;
             }
-            
+
             if (permission)
             {
                 Move();
@@ -41,26 +41,27 @@ public class Hex : MonoBehaviour
     {
         float y = points[Random.Range(0, 10)];
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
-        transform.DOMove(endPosition, 0.5f);
+        if (transform != null)
+            transform?.DOMove(endPosition, 0.5f);
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.TryGetComponent<Player>(out var player))
         {
             if (!end)
             {
+                //StopAllCoroutines();
                 Controller.Instance.Victory();
-               
+
             }
-                permission = false;
-            //Debug.Log($"{gameObject.name}");
+            permission = false;
+           
         }
     }
     private void OnTriggerExit(Collider other)
     {
         permission = true;
-        StartCoroutine(HexBehavor());
-        //Debug.Log($"out {gameObject.name}");
+       
     }
 
 }

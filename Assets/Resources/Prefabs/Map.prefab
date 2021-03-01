@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bea68bfdea592b4abbc93833d37c88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexPrefab: {fileID: 2443883648687408977, guid: c1d984223d07a8640920128f532fd93f,
+  hexPrefab: {fileID: 6572510424087198273, guid: c1d984223d07a8640920128f532fd93f,
     type: 3}
+  hexes: []
