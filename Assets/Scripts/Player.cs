@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Win!");
         speed = 0;
+        rigidbody.velocity = Vector3.zero;
         animator.SetTrigger("Win");
         yield return new WaitForSeconds(6);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
