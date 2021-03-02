@@ -24,6 +24,7 @@ public class Controller : MonoBehaviour
     public delegate void LooseDelegate();
     public event LooseDelegate Loose;
     private bool stopTime = true;
+    private bool once = true;
     //[SerializeField]
     //private Map map;
 
@@ -62,7 +63,11 @@ public class Controller : MonoBehaviour
 
                 if (gameTime <= 0)
                 {
-                    Loose();
+                    if (once)
+                    {
+                        Loose();
+                        once = false;
+                    }
                     gameTime = 0;
                 }
             }

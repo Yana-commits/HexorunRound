@@ -14,7 +14,12 @@ public class Map : MonoBehaviour
 
     public List<Hex> hexes = new List<Hex>();
     private float changeTime;
-    private bool permission = true;
+    float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
+
+    private float haight;
+    private int holesNomber = 5;
+
+    //private bool permission = true;
     void Start()
     {
         changeTime = HUD.Instance.changesTime.value;
@@ -30,11 +35,10 @@ public class Map : MonoBehaviour
             {
                 for (int i = 0; i < hexes.Count; i++)
                 {
-                    if (permission)
+                    if (hexes[i].permission && hexes[i].end)
                     {
-                        hexes[i].Move();
+                        hexes[i].Move(points);
                     }
-                    
                 }
                 changeTime = HUD.Instance.changesTime.value;
             }
@@ -46,6 +50,8 @@ public class Map : MonoBehaviour
     {
         int pointX = Random.Range(1, 2);
         int pointY = Random.Range(4, 15);
+
+       
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -56,15 +62,36 @@ public class Map : MonoBehaviour
                 {
                     xPos += xOffset / 2f;
                 }
-                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, 0, y * zOffset), Quaternion.identity)as Hex;
+
+                bool isActive = true;
+                int destiny = Random.Range(0, 100);
+
+                if (holesNomber > 0  &&  destiny%70==0)
+                {
+                    haight = -0.5f;
+                    holesNomber--;
+                    isActive = false;
+                }
+                else 
+                {
+                    haight = 0;
+                }
+                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, y * zOffset), Quaternion.identity)as Hex;
 
                 hex_go.name = "Hex_" + x + "_" + y;
                 //var cmp =  hex_go.GetComponent<Hex>();
+
                 if (x == pointX && y == pointY)
                 {
                     hex_go.GetComponent<MeshRenderer>().material.color = Color.red;
                     hex_go.end = false;
                 }
+
+                if (isActive == false)
+                {
+                    hex_go.end = false;
+                }
+                   
                 hex_go.transform.SetParent(this.transform);
                 hexes.Add(hex_go);
             }

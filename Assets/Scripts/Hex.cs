@@ -5,39 +5,36 @@ using DG.Tweening;
 
 public class Hex : MonoBehaviour
 {
-    float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
+    //float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
 
-
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private bool permission = true;
+   public Vector3 endPosition;
+    public bool permission = true;
     public bool end = true;
-    private float changeTime;
-
+   
     void Start()
     {
         //changeTime = HUD.Instance.changesTime.value;
         //StartCoroutine(HexBehavor());
     }
 
-    private IEnumerator HexBehavor()
-    {
-        while (permission)
-        {
-            if (!end)
-            {
-                break;
-            }
+    //private IEnumerator HexBehavor()
+    //{
+    //    while (permission)
+    //    {
+    //        if (!end)
+    //        {
+    //            break;
+    //        }
 
-            if (permission)
-            {
-                Move();
-            }
-            yield return new WaitForSeconds(changeTime);
-        }
-    }
+    //        if (permission)
+    //        {
+    //            Move();
+    //        }
+    //        yield return new WaitForSeconds(changeTime);
+    //    }
+    //}
 
-    public void Move()
+    public void Move(float[]points)
     {
         float y = points[Random.Range(0, 10)];
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
@@ -48,20 +45,24 @@ public class Hex : MonoBehaviour
     {
         if (other.TryGetComponent<Player>(out var player))
         {
-            if (!end)
+            if (player)
             {
-                //StopAllCoroutines();
-                Controller.Instance.Victory();
-
+                if (!end)
+                {
+                    Controller.Instance.Victory();
+                }
+                permission = false;
             }
-            permission = false;
-           
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        permission = true;
-       
+        if (other.TryGetComponent<Player>(out var player))
+        {
+            if (player)
+            {
+                permission = true;
+            }
+        }
     }
-
 }
