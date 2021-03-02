@@ -78,7 +78,15 @@ public class Map : MonoBehaviour
                 }
                 var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, y * zOffset), Quaternion.identity)as Hex;
 
-                hex_go.name = "Hex_" + x + "_" + y;
+                if (y % 2 == 0)
+                {
+                    hex_go.name = "Hex_" + (x*2) + "_" + (y/2);
+                }
+                else 
+                {
+                    hex_go.name = "Hex_" + ((x * 2)+1) + "_" + (y/2);
+                }
+                
                 //var cmp =  hex_go.GetComponent<Hex>();
 
                 if (x == pointX && y == pointY)
