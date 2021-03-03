@@ -51,7 +51,7 @@ public class Controller : MonoBehaviour
 
     public Hex hexPrefab;
 
-    public int width = 16;
+    public int width = 30;
     public int height = 20;
 
     float xOffset = 1.505f;
@@ -107,7 +107,7 @@ public class Controller : MonoBehaviour
         //Vector3 fieldPosition = Vector3.zero;
         //var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
         map = Map.Create(width, height, xOffset, zOffset, holesNomber, hexPrefab, hexes);
-        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(21f, 0.03f, 3.48f), Quaternion.identity);
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(21f, 0.03f,4.48f), Quaternion.identity);
         camera.player = player.transform;
     }
    

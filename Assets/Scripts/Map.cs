@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-  
+    [SerializeField] Material redMaterial;
     public List<Hex> hexes = new List<Hex>();
     private float changeTime;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
@@ -41,7 +41,11 @@ public class Map : MonoBehaviour
     public static Map Create(int width,int height,float xOffset,float zOffset ,int holesNomber,Hex hexPrefab, List<Hex> hexes)
     {
         Vector3 fieldPosition = Vector3.zero;
-        var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
+
+        var mapPrefab = Resources.Load<Map>("Prefabs/Map");
+
+
+        var map = Instantiate(mapPrefab, fieldPosition, Quaternion.identity);
 
         int pointX = Random.Range(1, 2);
         int pointY = Random.Range(4, 15);
@@ -86,7 +90,15 @@ public class Map : MonoBehaviour
 
                 if (x == pointX && y == pointY)
                 {
-                    hex_go.GetComponent<MeshRenderer>().material.color = Color.red;
+                    var rend = hex_go.GetComponent<Renderer>();
+                    rend.materials = new[] { null, map.redMaterial };
+                    /*
+                    foreach (var material in rend.materials)
+                    {
+                        material.SetColor("Color", Color.red);
+                        material.SetColor("Color 2", Color.red);
+                    }    
+                    */
                     hex_go.end = false;
                 }
 
@@ -99,6 +111,7 @@ public class Map : MonoBehaviour
                 hexes.Add(hex_go);
             }
         }
-        return map.gameObject.GetComponent<Map>();
+       
+        return map;
     }
 }

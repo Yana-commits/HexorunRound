@@ -18,7 +18,12 @@ ModelImporter:
   - first:
       74: -5405653242291790180
     second: Idel
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Character_mat
+    second: {fileID: 2100000, guid: efc2539d772a61a4da07a01638775872, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

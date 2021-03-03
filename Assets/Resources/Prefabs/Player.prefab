@@ -81,7 +81,7 @@ MonoBehaviour:
   xMin: 1
   xMax: 22
   zMin: 0
-  zMax: 7
+  zMax: 30
 --- !u!135 &463645848259778551
 SphereCollider:
   m_ObjectHideFlags: 0
