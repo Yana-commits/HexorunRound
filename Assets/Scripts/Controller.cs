@@ -35,6 +35,32 @@ public class Controller : MonoBehaviour
 
     public GameState gameState = GameState.doNotPlay;
 
+    private Map map;
+    public Map Map
+    {
+        get
+        {
+            return map;
+        }
+
+        set
+        {
+            map = value;
+        }
+    }
+
+    public Hex hexPrefab;
+
+    public int width = 16;
+    public int height = 20;
+
+    float xOffset = 1.505f;
+    float zOffset = 0.434f;
+
+    public List<Hex> hexes = new List<Hex>();
+   
+    private int holesNomber = 5;
+
     private void Awake()
     {
         if (instance == null)
@@ -78,8 +104,9 @@ public class Controller : MonoBehaviour
         gameState = GameState.doPlay;
         //map.Init();
         //player.Init();
-        Vector3 fieldPosition = Vector3.zero;
-        var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
+        //Vector3 fieldPosition = Vector3.zero;
+        //var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
+        map = Map.Create(width, height, xOffset, zOffset, holesNomber, hexPrefab, hexes);
         var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(21f, 0.03f, 3.48f), Quaternion.identity);
         camera.player = player.transform;
     }
@@ -90,5 +117,4 @@ public class Controller : MonoBehaviour
         stopTime = false;
         gameState = GameState.doNotPlay;
     }
-   
 }

@@ -4,26 +4,16 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    public Hex hexPrefab;
-
-    int width = 16;
-    int height = 20;
-
-    float xOffset = 1.505f;
-    float zOffset = 0.434f;
-
+  
     public List<Hex> hexes = new List<Hex>();
     private float changeTime;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
 
-    private float haight;
-    private int holesNomber = 5;
-
-    //private bool permission = true;
     void Start()
     {
         changeTime = HUD.Instance.changesTime.value;
-        Init();
+        //Init();
+        hexes = Controller.Instance.hexes;
     }
 
     private void FixedUpdate()
@@ -33,6 +23,7 @@ public class Map : MonoBehaviour
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
+                Debug.Log("Map");
                 for (int i = 0; i < hexes.Count; i++)
                 {
                     if (hexes[i].permission && hexes[i].end)
@@ -43,15 +34,19 @@ public class Map : MonoBehaviour
                 changeTime = HUD.Instance.changesTime.value;
             }
         }
-           
     }
 
-    public void Init()
+   
+
+    public static Map Create(int width,int height,float xOffset,float zOffset ,int holesNomber,Hex hexPrefab, List<Hex> hexes)
     {
+        Vector3 fieldPosition = Vector3.zero;
+        var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
+
         int pointX = Random.Range(1, 2);
         int pointY = Random.Range(4, 15);
+        float haight;
 
-       
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -66,27 +61,27 @@ public class Map : MonoBehaviour
                 bool isActive = true;
                 int destiny = Random.Range(0, 100);
 
-                if (holesNomber > 0  &&  destiny%70==0)
+                if (holesNomber > 0 && destiny % 70 == 0)
                 {
                     haight = -0.5f;
                     holesNomber--;
                     isActive = false;
                 }
-                else 
+                else
                 {
                     haight = 0;
                 }
-                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, y * zOffset), Quaternion.identity)as Hex;
+                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, y * zOffset), Quaternion.identity) as Hex;
 
                 if (y % 2 == 0)
                 {
-                    hex_go.name = "Hex_" + (x*2) + "_" + (y/2);
+                    hex_go.name = "Hex_" + (x * 2) + "_" + (y / 2);
                 }
-                else 
+                else
                 {
-                    hex_go.name = "Hex_" + ((x * 2)+1) + "_" + (y/2);
+                    hex_go.name = "Hex_" + ((x * 2) + 1) + "_" + (y / 2);
                 }
-                
+
                 //var cmp =  hex_go.GetComponent<Hex>();
 
                 if (x == pointX && y == pointY)
@@ -99,10 +94,11 @@ public class Map : MonoBehaviour
                 {
                     hex_go.end = false;
                 }
-                   
-                hex_go.transform.SetParent(this.transform);
+
+                //hex_go.transform.SetParent(this.transform);
                 hexes.Add(hex_go);
             }
         }
+        return map.gameObject.GetComponent<Map>();
     }
 }

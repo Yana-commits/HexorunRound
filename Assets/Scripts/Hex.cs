@@ -5,34 +5,17 @@ using DG.Tweening;
 
 public class Hex : MonoBehaviour
 {
-    //float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
-
+  
    public Vector3 endPosition;
     public bool permission = true;
     public bool end = true;
    
     void Start()
     {
-        //changeTime = HUD.Instance.changesTime.value;
-        //StartCoroutine(HexBehavor());
+        transform.SetParent(Controller.Instance.Map.transform);
+        
     }
 
-    //private IEnumerator HexBehavor()
-    //{
-    //    while (permission)
-    //    {
-    //        if (!end)
-    //        {
-    //            break;
-    //        }
-
-    //        if (permission)
-    //        {
-    //            Move();
-    //        }
-    //        yield return new WaitForSeconds(changeTime);
-    //    }
-    //}
 
     public void Move(float[]points)
     {

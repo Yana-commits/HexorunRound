@@ -23,17 +23,17 @@ public class Player : MonoBehaviour
             Vector3 velocity = new Vector3(-joystick.Vertical * speed, rigidbody.velocity.y, joystick.Horizontal * speed);
 
             rigidbody.velocity = velocity;
-
-            if (velocity.magnitude > 0)
-                rigidbody.rotation = Quaternion.LookRotation(rigidbody.velocity);
-
+            
+            if (joystick.Direction.magnitude > 0)
+                rigidbody.rotation = Quaternion.LookRotation(rigidbody.velocity, Vector3.up);
+            
             rigidbody.position = new Vector3
                 (
                 Mathf.Clamp(rigidbody.position.x, xMin, xMax),
-                0.0f,
+               rigidbody.position.y,
                 Mathf.Clamp(rigidbody.position.z, zMin, zMax)
                 );
-
+            
             animator.SetFloat("Speed", Mathf.Abs(rigidbody.velocity.magnitude));
         }
     }
@@ -45,10 +45,8 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         speed = HUD.Instance.playerSpeed.value;
 
-        //transform.position = new Vector3(21f, 0.03f, 3.48f);
         Controller.Instance.Win += Win;
         Controller.Instance.Loose += Loose;
-
     }
     public void Win()
     {
