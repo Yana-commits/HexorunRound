@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hexagon_mat
-  m_Shader: {fileID: -6465566751694194690, guid: fa2dc86ccda56164a9e3b482ef8da86d,
+  m_Name: Color_matirial_oblect
+  m_Shader: {fileID: -6465566751694194690, guid: 3126c310b68f14748bc5bf1d0a61416c,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -33,7 +33,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_8D272F1D: 0.295
-    - Vector1_B06B57BF: 0.43
-    m_Colors: []
+    - Boolean_7A195443: 0
+    - Vector1_48d49434debd4c688466f8b896964a23: 0.959
+    - Vector1_57B2F474: 1.01
+    - Vector1_5B0BFD77: -0.69
+    - Vector1_f7bb09625cb54699b88a3f47d01c52d9: 1
+    m_Colors:
+    - Color_3BEE2782: {r: 0.08018869, g: 0.3150341, b: 1, a: 1}
+    - Color_89D4D418: {r: 0.01214843, g: 0.22709246, b: 0.8584906, a: 1}
   m_BuildTextureStacks: []
