@@ -51,11 +51,11 @@ public class Controller : MonoBehaviour
 
     public Hex hexPrefab;
 
-    public int width = 30;
-    public int height = 20;
+    public int zWidth = 30;
+    public int xHeight = 20;
 
-    float xOffset = 1.505f;
-    float zOffset = 0.434f;
+    float xOffset = 0.753f;
+    float zOffset = 0.868f;
 
     public List<Hex> hexes = new List<Hex>();
    
@@ -106,8 +106,8 @@ public class Controller : MonoBehaviour
         //player.Init();
         //Vector3 fieldPosition = Vector3.zero;
         //var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
-        map = Map.Create(width, height, xOffset, zOffset, holesNomber, hexPrefab, hexes);
-        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(21f, 0.03f,4.48f), Quaternion.identity);
+        map = Map.Create(zWidth, xHeight, xOffset, zOffset, holesNomber, hexPrefab, hexes);
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(4f, 0.03f,1.5f), Quaternion.identity);
         camera.player = player.transform;
     }
    

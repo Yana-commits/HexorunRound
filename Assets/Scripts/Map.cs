@@ -38,7 +38,7 @@ public class Map : MonoBehaviour
 
    
 
-    public static Map Create(int width,int height,float xOffset,float zOffset ,int holesNomber,Hex hexPrefab, List<Hex> hexes)
+    public static Map Create(int zWdth, int xHeight, float xOffset,float zOffset ,int holesNomber,Hex hexPrefab, List<Hex> hexes)
     {
         Vector3 fieldPosition = Vector3.zero;
 
@@ -47,19 +47,19 @@ public class Map : MonoBehaviour
 
         var map = Instantiate(mapPrefab, fieldPosition, Quaternion.identity);
 
-        int pointX = Random.Range(1, 2);
-        int pointY = Random.Range(4, 15);
+        int pointX = Random.Range(1, (int)(xHeight * xOffset - 1));
+        int pointY = Random.Range((int)(zWdth * zOffset - 1), (int)(zWdth * zOffset));
         float haight;
 
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < xHeight; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < zWdth; y++)
             {
-                float xPos = x * xOffset;
+                float yPos = y * zOffset;
 
-                if (y % 2 == 1)
+                if (x % 2 == 1)
                 {
-                    xPos += xOffset / 2f;
+                    yPos += zOffset / 2f;
                 }
 
                 bool isActive = true;
@@ -75,16 +75,9 @@ public class Map : MonoBehaviour
                 {
                     haight = 0;
                 }
-                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, y * zOffset), Quaternion.identity) as Hex;
+                var hex_go = Instantiate(hexPrefab, new Vector3(x * xOffset, haight, yPos), Quaternion.identity) as Hex;
 
-                if (y % 2 == 0)
-                {
-                    hex_go.name = "Hex_" + (x * 2) + "_" + (y / 2);
-                }
-                else
-                {
-                    hex_go.name = "Hex_" + ((x * 2) + 1) + "_" + (y / 2);
-                }
+                hex_go.name = "Hex_" + x + "_" + y;
 
                 //var cmp =  hex_go.GetComponent<Hex>();
 

@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     {
         if (Controller.Instance.gameState == GameState.doPlay)
         {
-            Vector3 velocity = new Vector3(-joystick.Vertical * speed, rigidbody.velocity.y, joystick.Horizontal * speed);
+            Vector3 velocity = new Vector3(joystick.Horizontal * speed, rigidbody.velocity.y, joystick.Vertical * speed);
 
             rigidbody.velocity = velocity;
             

@@ -78,10 +78,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.5
-  xMin: 1
-  xMax: 22
-  zMin: 0
-  zMax: 30
+  xMin: -100
+  xMax: 100
+  zMin: -100
+  zMax: 100
 --- !u!135 &463645848259778551
 SphereCollider:
   m_ObjectHideFlags: 0
