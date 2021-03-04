@@ -51,15 +51,15 @@ public class Controller : MonoBehaviour
 
     public Hex hexPrefab;
 
-    public int zWidth = 30;
-    public int xHeight = 20;
+    //public int zWidth = 30;
+    //public int xHeight = 20;
 
-    float xOffset = 0.753f;
-    float zOffset = 0.868f;
+    //float xOffset = 0.753f;
+    //float zOffset = 0.868f;
 
     public List<Hex> hexes = new List<Hex>();
    
-    private int holesNomber = 5;
+    //private int holesNomber = 5;
 
     [SerializeField]
     private LevelParameters level;
@@ -119,11 +119,25 @@ public class Controller : MonoBehaviour
     public void Game()
     {
         gameState = GameState.doPlay;
+
+        InitializeLevel(koeff);
        
-        map = Map.Create(zWidth, xHeight, xOffset, zOffset, holesNomber, hexPrefab, hexes);
+        map = Map.Create(level, hexPrefab, hexes);
+        PlayerInit(level);
+    }
+    public void PlayerInit(LevelParameters level)
+    {
+        int xHeight = level.XHeight;
+        float xOffset = level.XOffset;
+
         float playerX = xHeight * xOffset / 2;
-        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f,1f), Quaternion.identity);
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f, 1f), Quaternion.identity);
         camera.player = player.transform;
+    }
+
+    public void InitializeLevel(int koeff)
+    { 
+    level = new LevelParameters(koeff);
     }
    
     public void Victory()

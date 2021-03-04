@@ -38,8 +38,14 @@ public class Map : MonoBehaviour
 
    
 
-    public static Map Create(int zWdth, int xHeight, float xOffset,float zOffset ,int holesNomber,Hex hexPrefab, List<Hex> hexes)
+    public static Map Create(LevelParameters level, Hex hexPrefab, List<Hex> hexes)
     {
+       int zWdth = level.ZWidth;
+        int xHeight = level.XHeight;
+        float xOffset = level.XOffset;
+        float zOffset = level.ZOffset;
+        int holesNomber = level.HolesNomber;
+
         Vector3 fieldPosition = Vector3.zero;
 
         var mapPrefab = Resources.Load<Map>("Prefabs/Map");
@@ -67,6 +73,7 @@ public class Map : MonoBehaviour
 
                 if (holesNomber > 0 && destiny % 70 == 0)
                 {
+                    Debug.Log("MMM");
                     haight = -0.5f;
                     holesNomber--;
                     isActive = false;

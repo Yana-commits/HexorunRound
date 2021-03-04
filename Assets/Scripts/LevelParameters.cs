@@ -20,7 +20,7 @@ public class LevelParameters
     private float zOffset = 0.868f;
 
     [SerializeField]
-    private int holesNomber = 2;
+    private int holesNomber = 3;
 
     public int ZWidth
     {
