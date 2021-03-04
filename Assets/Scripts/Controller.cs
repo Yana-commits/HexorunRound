@@ -76,7 +76,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private int koeff = 2;
+    private int koeff ;
 
     private void Awake()
     {
@@ -119,7 +119,7 @@ public class Controller : MonoBehaviour
     public void Game()
     {
         gameState = GameState.doPlay;
-
+        koeff = (int)HUD.Instance.areaFactor.value;
         InitializeLevel(koeff);
        
         map = Map.Create(level, hexPrefab, hexes);
