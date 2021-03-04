@@ -61,6 +61,23 @@ public class Controller : MonoBehaviour
    
     private int holesNomber = 5;
 
+    [SerializeField]
+    private LevelParameters level;
+    public LevelParameters Level
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
+        }
+    }
+
+    private int koeff = 2;
+
     private void Awake()
     {
         if (instance == null)
@@ -102,12 +119,10 @@ public class Controller : MonoBehaviour
     public void Game()
     {
         gameState = GameState.doPlay;
-        //map.Init();
-        //player.Init();
-        //Vector3 fieldPosition = Vector3.zero;
-        //var map = (GameObject)Instantiate(Resources.Load("Prefabs/Map"), fieldPosition, Quaternion.identity);
+       
         map = Map.Create(zWidth, xHeight, xOffset, zOffset, holesNomber, hexPrefab, hexes);
-        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(4f, 0.03f,1.5f), Quaternion.identity);
+        float playerX = xHeight * xOffset / 2;
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f,1f), Quaternion.identity);
         camera.player = player.transform;
     }
    

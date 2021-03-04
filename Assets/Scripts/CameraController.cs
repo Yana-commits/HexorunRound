@@ -9,15 +9,9 @@ public class CameraController : MonoBehaviour
     public Vector3 offset = new Vector3(0, 2, 0);
     public float MinX, MaxX, MinZ, MaxZ;
 
-    void Start()
-    {
-        
-    }
 
-   
     void Update()
     {
-
         Vector3 target = new Vector3
              (
             Mathf.Clamp(player.position.x - offset.x, MinX, MaxX),
@@ -27,5 +21,4 @@ public class CameraController : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * smooth);
     }
-
 }
