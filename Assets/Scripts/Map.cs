@@ -6,12 +6,12 @@ public class Map : MonoBehaviour
 {
     [SerializeField] Material redMaterial;
     public List<Hex> hexes = new List<Hex>();
-    private float changeTime;
+    private float changeTime=1;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
 
     void Start()
     {
-        changeTime = HUD.Instance.changesTime.value;
+        //changeTime = HUD.Instance.changesTime.value;
         //Init();
         hexes = Controller.Instance.hexes;
     }
