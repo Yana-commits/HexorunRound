@@ -23,7 +23,6 @@ public class Map : MonoBehaviour
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
-                Debug.Log("Map");
                 for (int i = 0; i < hexes.Count; i++)
                 {
                     if (hexes[i].permission && hexes[i].end)
@@ -73,7 +72,6 @@ public class Map : MonoBehaviour
 
                 if (holesNomber > 0 && destiny % 70 == 0)
                 {
-                    Debug.Log("MMM");
                     haight = -0.5f;
                     holesNomber--;
                     isActive = false;

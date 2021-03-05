@@ -13,7 +13,6 @@ public class Hex : MonoBehaviour
     void Start()
     {
         transform.SetParent(Controller.Instance.Map.transform);
-        
     }
 
 
