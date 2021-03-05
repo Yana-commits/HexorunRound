@@ -11,8 +11,6 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        //changeTime = HUD.Instance.changesTime.value;
-        //Init();
         hexes = Controller.Instance.hexes;
     }
 

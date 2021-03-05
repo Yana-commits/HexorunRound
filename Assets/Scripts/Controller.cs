@@ -25,9 +25,7 @@ public class Controller : MonoBehaviour
     public event LooseDelegate Loose;
     private bool stopTime = true;
     private bool once = true;
-    //[SerializeField]
-    //private Map map;
-
+    
     //[SerializeField]
     //private Player player;
     [SerializeField]
@@ -56,16 +54,8 @@ public class Controller : MonoBehaviour
 
     public Hex hexPrefab;
 
-    //public int zWidth = 30;
-    //public int xHeight = 20;
-
-    //float xOffset = 0.753f;
-    //float zOffset = 0.868f;
-
     public List<Hex> hexes = new List<Hex>();
    
-    //private int holesNomber = 5;
-
     [SerializeField]
     private LevelParameters level;
     public LevelParameters Level
@@ -170,5 +160,6 @@ public class Controller : MonoBehaviour
     {
         Loose?.Invoke();
         stopTime = false;
+        hexes.Clear();
     }
 }

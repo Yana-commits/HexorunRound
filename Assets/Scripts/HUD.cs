@@ -36,12 +36,10 @@ public class HUD : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
     }
     void Start()
     {
         startButton.onClick.AddListener(() => StartGame());
-        
     }
 
     // Update is called once per frame

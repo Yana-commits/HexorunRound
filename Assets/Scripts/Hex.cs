@@ -16,7 +16,6 @@ public class Hex : MonoBehaviour
         transform.SetParent(Controller.Instance.Map.transform);
     }
 
-
     public void Move(float[]points)
     {
         float y = points[Random.Range(0, 10)];
