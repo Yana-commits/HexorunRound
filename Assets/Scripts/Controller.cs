@@ -31,6 +31,11 @@ public class Controller : MonoBehaviour
     //[SerializeField]
     //private Player player;
     [SerializeField]
+    private CameraController perspCamera;
+
+    [SerializeField]
+    private CameraController ortoCamera;
+
     private CameraController camera;
 
     public GameState gameState = GameState.doNotPlay;
@@ -78,6 +83,8 @@ public class Controller : MonoBehaviour
 
     private int koeff ;
 
+    private float camKoeff;
+
     private void Awake()
     {
         if (instance == null)
@@ -120,6 +127,19 @@ public class Controller : MonoBehaviour
     {
         gameState = GameState.doPlay;
         koeff = (int)HUD.Instance.areaFactor.value;
+        camKoeff = HUD.Instance.cameraFactor.value;
+        if (camKoeff == 1)
+        {
+            perspCamera.gameObject.SetActive(false);
+            ortoCamera.gameObject.SetActive(true);
+            camera = ortoCamera;
+        }
+        else 
+        {
+            ortoCamera.gameObject.SetActive(false);
+            perspCamera.gameObject.SetActive(true);
+            camera = perspCamera;
+        }
         InitializeLevel(koeff);
        
         map = Map.Create(level, hexPrefab, hexes);
@@ -131,13 +151,13 @@ public class Controller : MonoBehaviour
         float xOffset = level.XOffset;
 
         float playerX = xHeight * xOffset / 2;
-        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f, 1f), Quaternion.identity);
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f, 3f), Quaternion.identity);
         camera.player = player.transform;
     }
 
     public void InitializeLevel(int koeff)
     { 
-    level = new LevelParameters(koeff);
+      level = new LevelParameters(koeff);
     }
    
     public void Victory()

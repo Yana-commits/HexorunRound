@@ -9,6 +9,7 @@ public class Hex : MonoBehaviour
    public Vector3 endPosition;
     public bool permission = true;
     public bool end = true;
+    public bool hole = true;
    
     void Start()
     {
@@ -32,6 +33,10 @@ public class Hex : MonoBehaviour
                 if (!end)
                 {
                     Controller.Instance.Victory();
+                }
+                else if (!hole)
+                { 
+                
                 }
                 permission = false;
             }
