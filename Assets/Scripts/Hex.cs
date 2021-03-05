@@ -35,8 +35,8 @@ public class Hex : MonoBehaviour
                     Controller.Instance.Victory();
                 }
                 else if (!hole)
-                { 
-                
+                {
+                    Controller.Instance.Lost();
                 }
                 permission = false;
             }

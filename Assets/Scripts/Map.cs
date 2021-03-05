@@ -25,7 +25,7 @@ public class Map : MonoBehaviour
             {
                 for (int i = 0; i < hexes.Count; i++)
                 {
-                    if (hexes[i].permission && hexes[i].end)
+                    if (hexes[i].permission && hexes[i].end && hexes[i].hole)
                     {
                         hexes[i].Move(points);
                     }
@@ -102,7 +102,7 @@ public class Map : MonoBehaviour
 
                 if (isActive == false)
                 {
-                    hex_go.end = false;
+                    hex_go.hole = false;
                 }
 
                 //hex_go.transform.SetParent(this.transform);

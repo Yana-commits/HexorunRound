@@ -115,7 +115,7 @@ public class Controller : MonoBehaviour
                 {
                     if (once)
                     {
-                        Loose();
+                        Loose?.Invoke();
                         once = false;
                     }
                     gameTime = 0;
@@ -162,8 +162,13 @@ public class Controller : MonoBehaviour
    
     public void Victory()
     {
-        Win();
+        Win?.Invoke();
         stopTime = false;
         gameState = GameState.doNotPlay;
+    }
+    public void Lost()
+    {
+        Loose?.Invoke();
+        stopTime = false;
     }
 }
