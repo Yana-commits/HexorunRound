@@ -26,6 +26,8 @@ public class HUD : MonoBehaviour
 
     public Slider cameraFactor;
 
+    public Slider holes;
+
     public Button startButton;
 
     public GameObject startPanel;

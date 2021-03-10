@@ -8,6 +8,9 @@ public class Map : MonoBehaviour
     public List<Hex> hexes = new List<Hex>();
     private float changeTime=1;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
+    float[] minusePoints = new float[10] {-3, -3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3};
+   
+    private float holesNomber;
 
     void Start()
     {
@@ -18,14 +21,25 @@ public class Map : MonoBehaviour
     {
         if (Controller.Instance.gameState == GameState.doPlay)
         {
+            holesNomber = HUD.Instance.holes.value;
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
                 for (int i = 0; i < hexes.Count; i++)
                 {
-                    if (hexes[i].permission && hexes[i].end && hexes[i].hole)
+                    if (hexes[i].permission && hexes[i].end)
                     {
-                        hexes[i].Move(points);
+                        int destiny = Random.Range(0, 100);
+
+                        if (holesNomber > 0 && destiny % 60 == 0)
+                        {
+                            hexes[i].Move(minusePoints);
+                            holesNomber--;
+                        }
+                        else 
+                        {
+                            hexes[i].Move(points);
+                        }
                     }
                 }
                 changeTime = HUD.Instance.changesTime.value;
@@ -41,7 +55,7 @@ public class Map : MonoBehaviour
         int xHeight = level.XHeight;
         float xOffset = level.XOffset;
         float zOffset = level.ZOffset;
-        int holesNomber = level.HolesNomber;
+        //int holesNomber = level.HolesNomber;
 
         Vector3 fieldPosition = Vector3.zero;
 
@@ -52,7 +66,7 @@ public class Map : MonoBehaviour
 
         int pointX = Random.Range(1, (int)(xHeight * xOffset - 1));
         int pointY = Random.Range((int)(zWdth * zOffset - 1), (int)(zWdth * zOffset));
-        float haight;
+        float haight =0;
 
         for (int x = 0; x < xHeight; x++)
         {
@@ -65,19 +79,19 @@ public class Map : MonoBehaviour
                     yPos += zOffset / 2f;
                 }
 
-                bool isActive = true;
-                int destiny = Random.Range(0, 100);
+                //bool isActive = true;
+                //int destiny = Random.Range(0, 100);
 
-                if (holesNomber > 0 && destiny % 70 == 0)
-                {
-                    haight = -0.5f;
-                    holesNomber--;
-                    isActive = false;
-                }
-                else
-                {
-                    haight = 0;
-                }
+                //if (holesNomber > 0 && destiny % 70 == 0)
+                //{
+                //    haight = -0.5f;
+                //    holesNomber--;
+                //    isActive = false;
+                //}
+                //else
+                //{
+                //    haight = 0;
+                //}
                 var hex_go = Instantiate(hexPrefab, new Vector3(x * xOffset, haight, yPos), Quaternion.identity) as Hex;
 
                 hex_go.name = "Hex_" + x + "_" + y;
@@ -98,10 +112,10 @@ public class Map : MonoBehaviour
                     hex_go.end = false;
                 }
 
-                if (isActive == false)
-                {
-                    hex_go.hole = false;
-                }
+                //if (isActive == false)
+                //{
+                //    hex_go.hole = false;
+                //}
 
                 //hex_go.transform.SetParent(this.transform);
                 hexes.Add(hex_go);
