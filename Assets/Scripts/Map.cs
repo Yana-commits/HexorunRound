@@ -26,8 +26,6 @@ public class Map : MonoBehaviour
         MooveHexes();
     }
 
-   
-
     public static Map Create(LevelParameters level, Hex hexPrefab, List<Hex> hexes)
     {
        int zWdth = level.ZWidth;
@@ -145,11 +143,7 @@ public class Map : MonoBehaviour
                     {
                         list[index].Move(minusePoints);
                     }
-                    
                 }
-
-                    
-
                 changeTime = HUD.Instance.changesTime.value;
             }
         }
