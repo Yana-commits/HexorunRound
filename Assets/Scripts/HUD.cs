@@ -35,9 +35,12 @@ public class HUD : MonoBehaviour
     public GameObject gameplayPanel;
 
     public Text timeText;
+
+    public Text sliderValue;
     private void Awake()
     {
         instance = this;
+        holes.onValueChanged.AddListener(ChangeValue);
     }
     void Start()
     {
@@ -60,5 +63,10 @@ public class HUD : MonoBehaviour
         startPanel.SetActive(false);
         gameplayPanel.SetActive(true);
         Controller.Instance.Game();
+    }
+
+    public void ChangeValue(float value)
+    {
+        sliderValue.text = /*holes.value.ToString();*/value.ToString();
     }
 }

@@ -31,7 +31,7 @@ public class Map : MonoBehaviour
                     {
                         int destiny = Random.Range(0, 100);
 
-                        if (holesNomber > 0 && destiny % 60 == 0)
+                        if (holesNomber > 0 && destiny % 10 == 0)
                         {
                             hexes[i].Move(minusePoints);
                             holesNomber--;
@@ -78,6 +78,8 @@ public class Map : MonoBehaviour
                 {
                     yPos += zOffset / 2f;
                 }
+
+                float xPos = x * xOffset;
                 //bool isActive = true;
                 //int destiny = Random.Range(0, 100);
 
@@ -91,7 +93,7 @@ public class Map : MonoBehaviour
                 //{
                 //    haight = 0;
                 //}
-                var hex_go = Instantiate(hexPrefab, new Vector3(x * xOffset, haight, yPos), Quaternion.identity) as Hex;
+                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, yPos), Quaternion.identity) as Hex;
 
                 hex_go.name = "Hex_" + x + "_" + y;
 

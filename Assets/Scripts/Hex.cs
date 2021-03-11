@@ -10,6 +10,8 @@ public class Hex : MonoBehaviour
     public bool permission = true;
     public bool end = true;
     public bool hole = true;
+    public Vector3 cube_coord;
+    
    
     void Start()
     {
