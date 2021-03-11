@@ -626,7 +626,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 200
   m_WholeNumbers: 1
-  m_Value: 80
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2881,7 +2881,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 80
+  m_Text: 100
 --- !u!222 &943430899
 CanvasRenderer:
   m_ObjectHideFlags: 0

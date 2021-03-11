@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Map : MonoBehaviour
 {
@@ -9,42 +10,20 @@ public class Map : MonoBehaviour
     private float changeTime=1;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
     float[] minusePoints = new float[10] {-3, -3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3};
+  
+
    
     private float holesNomber;
 
     void Start()
     {
         hexes = Controller.Instance.hexes;
+        holesNomber = HUD.Instance.holes.value;
     }
 
     private void FixedUpdate()
     {
-        if (Controller.Instance.gameState == GameState.doPlay)
-        {
-            holesNomber = HUD.Instance.holes.value;
-            changeTime = changeTime - 1 * Time.deltaTime;
-            if (changeTime <= 0)
-            {
-                for (int i = 0; i < hexes.Count; i++)
-                {
-                    if (hexes[i].permission && hexes[i].end)
-                    {
-                        int destiny = Random.Range(0, 100);
-
-                        if (holesNomber > 0 && destiny % 10 == 0)
-                        {
-                            hexes[i].Move(minusePoints);
-                            holesNomber--;
-                        }
-                        else 
-                        {
-                            hexes[i].Move(points);
-                        }
-                    }
-                }
-                changeTime = HUD.Instance.changesTime.value;
-            }
-        }
+        MooveHexes();
     }
 
    
@@ -118,11 +97,61 @@ public class Map : MonoBehaviour
                 //    hex_go.hole = false;
                 //}
 
-                //hex_go.transform.SetParent(this.transform);
+                hex_go.transform.SetParent(map.transform);
                 hexes.Add(hex_go);
             }
         }
        
         return map;
+    }
+
+    public void MooveHexes()
+    {
+        if (Controller.Instance.gameState == GameState.doPlay)
+        {
+           
+            changeTime = changeTime - 1 * Time.deltaTime;
+            if (changeTime <= 0)
+            {
+                for (int i = 0; i < hexes.Count; i++)
+                {
+                    if (hexes[i].permission && hexes[i].end)
+                    {
+                        //int destiny = Random.Range(0, 100);
+
+                        //if (holesNomber > 0 && destiny % 5 == 0)
+                        //{
+                        //    hexes[i].Move(minusePoints);
+                        //    holesNomber--;
+                        //}
+                        //else
+                        {
+                            hexes[i].Move(points);
+                        }
+                    }
+                }
+
+                var list = hexes.Where(x => x.state == HexState.NONE).ToList();
+
+                for (int i = 0; i < holesNomber; i++)
+                {
+                    int index = Random.Range(0, list.Count);
+
+                    if (list[index].state != HexState.NONE)
+                    {
+                        i--;
+                    }
+                    else
+                    {
+                        list[index].Move(minusePoints);
+                    }
+                    
+                }
+
+                    
+
+                changeTime = HUD.Instance.changesTime.value;
+            }
+        }
     }
 }
