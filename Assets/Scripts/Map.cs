@@ -78,7 +78,6 @@ public class Map : MonoBehaviour
                 {
                     yPos += zOffset / 2f;
                 }
-
                 //bool isActive = true;
                 //int destiny = Random.Range(0, 100);
 
