@@ -54,8 +54,6 @@ public class Controller : MonoBehaviour
 
     public Hex hexPrefab;
 
-    public List<Hex> hexes = new List<Hex>();
-   
     [SerializeField]
     private LevelParameters level;
     public LevelParameters Level
@@ -132,7 +130,7 @@ public class Controller : MonoBehaviour
         }
         InitializeLevel(koeff);
        
-        map = Map.Create(level, hexPrefab, hexes);
+        map = Map.Create(level, hexPrefab);
         PlayerInit(level);
     }
     public void PlayerInit(LevelParameters level)
@@ -160,6 +158,5 @@ public class Controller : MonoBehaviour
     {
         Loose?.Invoke();
         stopTime = false;
-        hexes.Clear();
     }
 }

@@ -1,17 +1,18 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class Hex : MonoBehaviour
 {
-  
-   public Vector3 endPosition;
+
+    public Vector3 endPosition;
     public bool permission = true;
     public bool end = true;
-    public bool hole = true;
-    public Vector3 cube_coord;
+    //public bool hole = true;
+    public Vector3Int cube_coord;
     public HexState state = HexState.NONE;
+
    
 
     public void Move(float[]points)
@@ -32,10 +33,10 @@ public class Hex : MonoBehaviour
                 {
                     Controller.Instance.Victory();
                 }
-                else if (!hole)
-                {
-                    Controller.Instance.Lost();
-                }
+                //else if (!hole)
+                //{
+                //    Controller.Instance.Lost();
+                //}
                 permission = false;
             }
         }

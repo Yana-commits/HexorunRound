@@ -7,47 +7,37 @@ public class Map : MonoBehaviour
 {
     [SerializeField] Material redMaterial;
     public List<Hex> hexes = new List<Hex>();
-    private float changeTime=1;
+    private float changeTime = 1;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
-    float[] minusePoints = new float[10] {-3, -3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3};
-  
+    float[] minusePoints = new float[10] { -3, -3, -3, -3, -3, -3, -3, -3, -3, -3 };
 
-   
+    
     private float holesNomber;
+
+    private Vector2Int size;
+
+    public Hex this[Vector3Int index] => hexes[ConvertToArrayIndex(index)];
+    public Hex this[Vector2Int index] => hexes[ConvertToArrayIndex(index)];
+
+    private int ConvertToArrayIndex(Vector3Int index) => ConvertToArrayIndex(ConvertCoordToAxial(index));
+    private int ConvertToArrayIndex(Vector2Int index) => index.x * size.x + index.y;
+
 
     void Start()
     {
-        hexes = Controller.Instance.hexes;
         holesNomber = HUD.Instance.holes.value;
     }
 
-    private void FixedUpdate()
+    private void Initializie(LevelParameters level, Hex hexPrefab)
     {
-        MooveHexes();
-    }
+        size = new Vector2Int(level.ZWidth, level.XHeight);
 
-    public static Map Create(LevelParameters level, Hex hexPrefab, List<Hex> hexes)
-    {
-       int zWdth = level.ZWidth;
-        int xHeight = level.XHeight;
         float xOffset = level.XOffset;
         float zOffset = level.ZOffset;
-        //int holesNomber = level.HolesNomber;
 
-        Vector3 fieldPosition = Vector3.zero;
-
-        var mapPrefab = Resources.Load<Map>("Prefabs/Map");
-
-
-        var map = Instantiate(mapPrefab, fieldPosition, Quaternion.identity);
-
-        int pointX = Random.Range(1, (int)(xHeight * xOffset - 1));
-        int pointY = Random.Range((int)(zWdth * zOffset - 1), (int)(zWdth * zOffset));
-        float haight =0;
-
-        for (int x = 0; x < xHeight; x++)
+        for (int x = 0; x < size.y; x++)
         {
-            for (int y = 0; y < zWdth; y++)
+            for (int y = 0; y < size.x; y++)
             {
                 float yPos = y * zOffset;
 
@@ -57,49 +47,40 @@ public class Map : MonoBehaviour
                 }
 
                 float xPos = x * xOffset;
-                //bool isActive = true;
-                //int destiny = Random.Range(0, 100);
 
-                //if (holesNomber > 0 && destiny % 70 == 0)
-                //{
-                //    haight = -0.5f;
-                //    holesNomber--;
-                //    isActive = false;
-                //}
-                //else
-                //{
-                //    haight = 0;
-                //}
-                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, yPos), Quaternion.identity) as Hex;
-
+                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, 0, yPos), Quaternion.identity);
                 hex_go.name = "Hex_" + x + "_" + y;
+                hex_go.cube_coord = ToCube(x, y);
 
-                //var cmp =  hex_go.GetComponent<Hex>();
 
-                if (x == pointX && y == pointY)
-                {
-                    var rend = hex_go.GetComponent<Renderer>();
-                    rend.materials = new[] { null, map.redMaterial };
-                    /*
-                    foreach (var material in rend.materials)
-                    {
-                        material.SetColor("Color", Color.red);
-                        material.SetColor("Color 2", Color.red);
-                    }    
-                    */
-                    hex_go.end = false;
-                }
-
-                //if (isActive == false)
-                //{
-                //    hex_go.hole = false;
-                //}
-
-                hex_go.transform.SetParent(map.transform);
+                hex_go.transform.SetParent(transform);
                 hexes.Add(hex_go);
             }
         }
-       
+
+        var target = hexes
+            .Where(h => h.cube_coord.x > 3)
+            .OrderBy(v => Random.value)
+            .First();
+
+
+        var rend = target.GetComponent<Renderer>();
+        rend.materials = new[] { null, redMaterial };
+        target.end = false;
+    }
+
+    private void FixedUpdate()
+    {
+        MooveHexes();
+    }
+
+    public static Map Create(LevelParameters level, Hex hexPrefab)
+    {
+        Vector3 fieldPosition = Vector3.zero;
+        var mapPrefab = Resources.Load<Map>("Prefabs/Map");
+
+        var map = Instantiate(mapPrefab, fieldPosition, Quaternion.identity);
+        map.Initializie(level, hexPrefab);
         return map;
     }
 
@@ -107,7 +88,7 @@ public class Map : MonoBehaviour
     {
         if (Controller.Instance.gameState == GameState.doPlay)
         {
-           
+
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
@@ -148,4 +129,37 @@ public class Map : MonoBehaviour
             }
         }
     }
+
+    static Vector3Int ToCube(int xPos, int yPos)
+    {
+        var x = xPos;
+        var z = yPos;
+        var y = -x - z;
+
+        return new Vector3Int(x, y, z);
+    }
+
+    private Vector2Int ConvertCoordToAxial(Vector3Int index) => Vector2Int.zero;
+
+
+    private IEnumerable<Vector3Int> _directions
+    {
+        get
+        {
+            yield return new Vector3Int(1, 0, 0);
+            yield return new Vector3Int(0, 1, 0);
+            yield return new Vector3Int(0, 0, 1);
+
+            yield return new Vector3Int(-1, 0, 0);
+            yield return new Vector3Int(0, -1, 0);
+            yield return new Vector3Int(0, 0, -1);
+        }
+    }
+
+    public IEnumerable<Vector3Int> GetNeighbour(Hex hex)
+        => GetNeighbour(hex.cube_coord);
+
+    public IEnumerable<Vector3Int> GetNeighbour(Vector3Int index)
+        => _directions.Select(v => index + v);
+
 }
