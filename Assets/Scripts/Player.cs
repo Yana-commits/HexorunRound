@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
             
             animator.SetFloat("Speed", Mathf.Abs(rigidbody.velocity.magnitude));
         }
+
+        if (rigidbody.position.y <= -2)
+        {
+            Fall();
+        }
     }
 
     public void Init()
@@ -78,5 +83,10 @@ public class Player : MonoBehaviour
     {
         Controller.Instance.Win -= Win;
         Controller.Instance.Loose -= Loose;
+    }
+    private void Fall()
+    {
+        Debug.Log("Loose!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

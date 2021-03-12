@@ -19,8 +19,8 @@ public class LevelParameters
     [SerializeField]
     private float zOffset = 0.868f;
 
-    [SerializeField]
-    private int holesNomber = 3;
+    //[SerializeField]
+    //private int holesNomber = 3;
 
     public int ZWidth
     {
@@ -44,19 +44,19 @@ public class LevelParameters
         get { return zOffset; }
     }
 
-    public int HolesNomber
-    {
-        get
-        {
-            return holesNomber;
-        }
+    //public int HolesNomber
+    //{
+    //    get
+    //    {
+    //        return holesNomber;
+    //    }
 
-    }
+    //}
 
     public LevelParameters(int koeff)
     {
         zWidth = zWidth * koeff;
         xHeight = xHeight * koeff;
-        holesNomber = holesNomber * koeff;
+        //holesNomber = holesNomber * koeff;
     }
 }

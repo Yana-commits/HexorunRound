@@ -10,15 +10,14 @@ public class Hex : MonoBehaviour
     public bool permission = true;
     public bool end = true;
     public bool hole = true;
+    public Vector3 cube_coord;
+    public HexState state = HexState.NONE;
    
-    void Start()
-    {
-        transform.SetParent(Controller.Instance.Map.transform);
-    }
 
     public void Move(float[]points)
     {
         float y = points[Random.Range(0, 10)];
+        state = y == 0 ? HexState.NONE : (y == -3 ? HexState.DOWN : HexState.UP);
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
         if (transform != null)
             transform?.DOMove(endPosition, 0.5f);
@@ -51,4 +50,11 @@ public class Hex : MonoBehaviour
             }
         }
     }
+}
+
+public enum HexState
+{
+    NONE,
+    UP,
+    DOWN
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Map : MonoBehaviour
 {
@@ -8,32 +9,22 @@ public class Map : MonoBehaviour
     public List<Hex> hexes = new List<Hex>();
     private float changeTime=1;
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
+    float[] minusePoints = new float[10] {-3, -3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3 ,-3};
+  
+
+   
+    private float holesNomber;
 
     void Start()
     {
         hexes = Controller.Instance.hexes;
+        holesNomber = HUD.Instance.holes.value;
     }
 
     private void FixedUpdate()
     {
-        if (Controller.Instance.gameState == GameState.doPlay)
-        {
-            changeTime = changeTime - 1 * Time.deltaTime;
-            if (changeTime <= 0)
-            {
-                for (int i = 0; i < hexes.Count; i++)
-                {
-                    if (hexes[i].permission && hexes[i].end && hexes[i].hole)
-                    {
-                        hexes[i].Move(points);
-                    }
-                }
-                changeTime = HUD.Instance.changesTime.value;
-            }
-        }
+        MooveHexes();
     }
-
-   
 
     public static Map Create(LevelParameters level, Hex hexPrefab, List<Hex> hexes)
     {
@@ -41,7 +32,7 @@ public class Map : MonoBehaviour
         int xHeight = level.XHeight;
         float xOffset = level.XOffset;
         float zOffset = level.ZOffset;
-        int holesNomber = level.HolesNomber;
+        //int holesNomber = level.HolesNomber;
 
         Vector3 fieldPosition = Vector3.zero;
 
@@ -52,7 +43,7 @@ public class Map : MonoBehaviour
 
         int pointX = Random.Range(1, (int)(xHeight * xOffset - 1));
         int pointY = Random.Range((int)(zWdth * zOffset - 1), (int)(zWdth * zOffset));
-        float haight;
+        float haight =0;
 
         for (int x = 0; x < xHeight; x++)
         {
@@ -65,20 +56,21 @@ public class Map : MonoBehaviour
                     yPos += zOffset / 2f;
                 }
 
-                bool isActive = true;
-                int destiny = Random.Range(0, 100);
+                float xPos = x * xOffset;
+                //bool isActive = true;
+                //int destiny = Random.Range(0, 100);
 
-                if (holesNomber > 0 && destiny % 70 == 0)
-                {
-                    haight = -0.5f;
-                    holesNomber--;
-                    isActive = false;
-                }
-                else
-                {
-                    haight = 0;
-                }
-                var hex_go = Instantiate(hexPrefab, new Vector3(x * xOffset, haight, yPos), Quaternion.identity) as Hex;
+                //if (holesNomber > 0 && destiny % 70 == 0)
+                //{
+                //    haight = -0.5f;
+                //    holesNomber--;
+                //    isActive = false;
+                //}
+                //else
+                //{
+                //    haight = 0;
+                //}
+                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, haight, yPos), Quaternion.identity) as Hex;
 
                 hex_go.name = "Hex_" + x + "_" + y;
 
@@ -98,16 +90,62 @@ public class Map : MonoBehaviour
                     hex_go.end = false;
                 }
 
-                if (isActive == false)
-                {
-                    hex_go.hole = false;
-                }
+                //if (isActive == false)
+                //{
+                //    hex_go.hole = false;
+                //}
 
-                //hex_go.transform.SetParent(this.transform);
+                hex_go.transform.SetParent(map.transform);
                 hexes.Add(hex_go);
             }
         }
        
         return map;
+    }
+
+    public void MooveHexes()
+    {
+        if (Controller.Instance.gameState == GameState.doPlay)
+        {
+           
+            changeTime = changeTime - 1 * Time.deltaTime;
+            if (changeTime <= 0)
+            {
+                for (int i = 0; i < hexes.Count; i++)
+                {
+                    if (hexes[i].permission && hexes[i].end)
+                    {
+                        //int destiny = Random.Range(0, 100);
+
+                        //if (holesNomber > 0 && destiny % 5 == 0)
+                        //{
+                        //    hexes[i].Move(minusePoints);
+                        //    holesNomber--;
+                        //}
+                        //else
+                        {
+                            hexes[i].Move(points);
+                        }
+                    }
+                }
+
+                var list = hexes.Where(x => x.state == HexState.NONE).ToList();
+
+                for (int i = 0; i < holesNomber; i++)
+                {
+                    int index = Random.Range(0, list.Count);
+
+                    if (list[index].state != HexState.NONE)
+                    {
+                        i--;
+                    }
+                    else
+                    {
+                        list[index].Move(minusePoints);
+                    }
+                }
+                changeTime = HUD.Instance.changesTime.value;
+            }
+        }
     }
 }
