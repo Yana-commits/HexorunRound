@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
     float[] minusePoints = new float[10] { -3, -3, -3, -3, -3, -3, -3, -3, -3, -3 };
 
-    
+
     private float holesNomber;
 
     private Vector2Int size;
@@ -21,7 +21,7 @@ public class Map : MonoBehaviour
 
     private int ConvertToArrayIndex(Vector3Int index) => ConvertToArrayIndex(ConvertCoordToAxial(index));
     private int ConvertToArrayIndex(Vector2Int index) => index.x * size.x + index.y;
-
+    private Vector3Int[] neighbourArray;
 
     void Start()
     {
@@ -52,6 +52,8 @@ public class Map : MonoBehaviour
                 hex_go.name = "Hex_" + x + "_" + y;
                 hex_go.cube_coord = ToCube(x, y);
 
+                hex_go.neihbours = GetNeighbour(hex_go.cube_coord);
+                //Debug.Log($"{hex_go.neihbours.ToArray()[1]}");
 
                 hex_go.transform.SetParent(transform);
                 hexes.Add(hex_go);
@@ -88,25 +90,16 @@ public class Map : MonoBehaviour
     {
         if (Controller.Instance.gameState == GameState.doPlay)
         {
-
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
+                neighbourArray = hexes.Where(h => h.permission == false).FirstOrDefault().neihbours.ToArray();
+
                 for (int i = 0; i < hexes.Count; i++)
                 {
-                    if (hexes[i].permission && hexes[i].end)
+                    if (hexes[i].permission && hexes[i].end && !neighbourArray.Contains(hexes[i].cube_coord))
                     {
-                        //int destiny = Random.Range(0, 100);
-
-                        //if (holesNomber > 0 && destiny % 5 == 0)
-                        //{
-                        //    hexes[i].Move(minusePoints);
-                        //    holesNomber--;
-                        //}
-                        //else
-                        {
-                            hexes[i].Move(points);
-                        }
+                        hexes[i].Move(points);
                     }
                 }
 
@@ -116,7 +109,7 @@ public class Map : MonoBehaviour
                 {
                     int index = Random.Range(0, list.Count);
 
-                    if (list[index].state != HexState.NONE)
+                    if (list[index].state != HexState.NONE || neighbourArray.Contains(list[index].cube_coord)|| !list[i].permission)
                     {
                         i--;
                     }
@@ -146,13 +139,13 @@ public class Map : MonoBehaviour
     {
         get
         {
-            yield return new Vector3Int(1, 0, 0);
-            yield return new Vector3Int(0, 1, 0);
-            yield return new Vector3Int(0, 0, 1);
+            yield return new Vector3Int(1, 0, -1);
+            yield return new Vector3Int(-1, 1, 0);
+            yield return new Vector3Int(0, -1, 1);
 
-            yield return new Vector3Int(-1, 0, 0);
-            yield return new Vector3Int(0, -1, 0);
-            yield return new Vector3Int(0, 0, -1);
+            yield return new Vector3Int(-1, 2,-1);
+            yield return new Vector3Int(1, -1, 0);
+            yield return new Vector3Int(0, 1, -1);
         }
     }
 
