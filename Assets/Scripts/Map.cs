@@ -26,6 +26,7 @@ public class Map : MonoBehaviour
     void Start()
     {
         holesNomber = HUD.Instance.holes.value;
+        Debug.Log(size);
     }
 
     private void Initializie(LevelParameters level, Hex hexPrefab)
@@ -61,13 +62,13 @@ public class Map : MonoBehaviour
         }
 
         var target = hexes
-            .Where(h => h.cube_coord.x > 3)
+            .Where(h => h.cube_coord.z > size.x - 10)
             .OrderBy(v => Random.value)
             .First();
 
 
         var rend = target.GetComponent<Renderer>();
-        rend.materials = new[] { null, redMaterial };
+        rend.materials = new[] { null, redMaterial, redMaterial };
         target.end = false;
     }
 
@@ -103,7 +104,7 @@ public class Map : MonoBehaviour
                     }
                 }
 
-                var list = hexes.Where(x => x.state == HexState.NONE).ToList();
+                var list = hexes.Where(x => x.state == HexState.NONE && x.end && x.permission).ToList();
 
                 for (int i = 0; i < holesNomber; i++)
                 {
@@ -132,7 +133,12 @@ public class Map : MonoBehaviour
         return new Vector3Int(x, y, z);
     }
 
-    private Vector2Int ConvertCoordToAxial(Vector3Int index) => Vector2Int.zero;
+    private Vector2Int ConvertCoordToAxial(Vector3Int index)
+    {
+        var q = index.x;
+        var r = index.z;
+        return new Vector2Int(q, r);
+    }
 
 
     private IEnumerable<Vector3Int> _directions
