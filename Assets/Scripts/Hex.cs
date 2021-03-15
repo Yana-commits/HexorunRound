@@ -18,7 +18,7 @@ public class Hex : MonoBehaviour
 
     public void Move(float[]points)
     {
-        float y = points[Random.Range(0, 10)];
+        float y = points[Random.Range(0, points.Length)];
         state = y == 0 ? HexState.NONE : (y == -3 ? HexState.DOWN : HexState.UP);
         endPosition = new Vector3(transform.position.x, y, transform.position.z);
         if (transform != null)

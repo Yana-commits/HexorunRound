@@ -21,7 +21,7 @@ public class Map : MonoBehaviour
 
     private int ConvertToArrayIndex(Vector3Int index) => ConvertToArrayIndex(ConvertCoordToAxial(index));
     private int ConvertToArrayIndex(Vector2Int index) => index.x * size.x + index.y;
-    private Vector3Int[] neighbourArray;
+
 
     void Start()
     {
@@ -31,6 +31,8 @@ public class Map : MonoBehaviour
 
     private void Initializie(LevelParameters level, Hex hexPrefab)
     {
+
+
         size = new Vector2Int(level.ZWidth, level.XHeight);
 
         float xOffset = level.XOffset;
@@ -94,23 +96,31 @@ public class Map : MonoBehaviour
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
-                neighbourArray = hexes.Where(h => h.permission == false).FirstOrDefault().neihbours.ToArray();
+                var ignorHexArray = hexes
+                    .Where(h => h.permission == false || !h.end).
+                    SelectMany(h => GetNeighbour(h.cube_coord))
+                    .Select(ind => this[ind]);
 
-                for (int i = 0; i < hexes.Count; i++)
+                ignorHexArray = hexes.Where(h => h.permission == false || !h.end).Union(ignorHexArray);
+
+                foreach (var item in ignorHexArray)
                 {
-                    if (hexes[i].permission && hexes[i].end && !neighbourArray.Contains(hexes[i].cube_coord))
-                    {
-                        hexes[i].Move(points);
-                    }
+                    item.Move(new float[] { 0, 0 });
                 }
 
-                var list = hexes.Where(x => x.state == HexState.NONE && x.end && x.permission).ToList();
+                var tt = hexes.Except(ignorHexArray);
+                foreach (var item in tt)
+                {
+                    item.Move(points);
+                }
+
+                var list = hexes.Where(x => x.state == HexState.NONE).Except(ignorHexArray).ToList();
 
                 for (int i = 0; i < holesNomber; i++)
                 {
                     int index = Random.Range(0, list.Count);
 
-                    if (list[index].state != HexState.NONE || neighbourArray.Contains(list[index].cube_coord)|| !list[i].permission)
+                    if (list[index].state != HexState.NONE)
                     {
                         i--;
                     }
@@ -145,13 +155,13 @@ public class Map : MonoBehaviour
     {
         get
         {
-            yield return new Vector3Int(1, 0, -1);
-            yield return new Vector3Int(-1, 1, 0);
-            yield return new Vector3Int(0, -1, 1);
-
-            yield return new Vector3Int(-1, 2,-1);
             yield return new Vector3Int(1, -1, 0);
+            yield return new Vector3Int(1, 0, -1);
             yield return new Vector3Int(0, 1, -1);
+
+            yield return new Vector3Int(-1, 1, 0);
+            yield return new Vector3Int(-1, 0, 1);
+            yield return new Vector3Int(0, -1, 1);
         }
     }
 
