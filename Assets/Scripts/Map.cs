@@ -129,7 +129,8 @@ public class Map : MonoBehaviour
                         list[index].Move(minusePoints);
                     }
                 }
-                changeTime = HUD.Instance.changesTime.value;
+                //changeTime = HUD.Instance.changesTime.value;
+                changeTime = 2;
             }
         }
     }

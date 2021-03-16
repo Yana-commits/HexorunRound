@@ -17,7 +17,7 @@ public class Controller : MonoBehaviour
         }
     }
     
-    public float gameTime;
+    public float gameTime =30;
 
     public delegate void WinDelegate();
     public event WinDelegate Win;
@@ -71,7 +71,7 @@ public class Controller : MonoBehaviour
 
     private int koeff ;
 
-    private float camKoeff;
+    private float camKoeff =1;
 
     private void Awake()
     {
@@ -86,7 +86,7 @@ public class Controller : MonoBehaviour
     }
     void Start()
     {
-        gameTime = HUD.Instance.timer.value;
+        //gameTime = HUD.Instance.timer.value;
     }
 
     void FixedUpdate()
@@ -115,7 +115,7 @@ public class Controller : MonoBehaviour
     {
         gameState = GameState.doPlay;
         koeff = (int)HUD.Instance.areaFactor.value;
-        camKoeff = HUD.Instance.cameraFactor.value;
+        //camKoeff = HUD.Instance.cameraFactor.value;
         if (camKoeff == 1)
         {
             perspCamera.gameObject.SetActive(false);

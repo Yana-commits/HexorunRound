@@ -37,10 +37,13 @@ public class HUD : MonoBehaviour
     public Text timeText;
 
     public Text sliderValue;
+
+    public Text sliderValueLenth;
     private void Awake()
     {
         instance = this;
         holes.onValueChanged.AddListener(ChangeValue);
+        areaFactor.onValueChanged.AddListener(ChangeValueLenth);
     }
     void Start()
     {
@@ -68,5 +71,10 @@ public class HUD : MonoBehaviour
     public void ChangeValue(float value)
     {
         sliderValue.text = /*holes.value.ToString();*/value.ToString();
+    }
+
+    public void ChangeValueLenth(float value)
+    {
+       sliderValueLenth.text = value.ToString();
     }
 }

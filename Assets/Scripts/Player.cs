@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     protected Joystick joystick;
     private Rigidbody rigidbody;
-    public float speed;
+    public float speed =2;
    private Animator animator;
     public float xMin, xMax, zMin, zMax;
     void Start()
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         joystick = FindObjectOfType<Joystick>();
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-        speed = HUD.Instance.playerSpeed.value;
+        //speed = HUD.Instance.playerSpeed.value;
 
         Controller.Instance.Win += Win;
         Controller.Instance.Loose += Loose;

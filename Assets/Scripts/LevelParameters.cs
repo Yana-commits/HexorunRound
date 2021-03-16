@@ -55,8 +55,15 @@ public class LevelParameters
 
     public LevelParameters(int koeff)
     {
-        zWidth = zWidth * koeff;
-        xHeight = xHeight * koeff;
+        if (koeff > 1)
+        {
+            zWidth = (int)(zWidth + zWidth * koeff * 0.3f);
+        }
+        else 
+        {
+            zWidth = zWidth * koeff;
+        }
+        xHeight = this.xHeight ;
         //holesNomber = holesNomber * koeff;
     }
 }
