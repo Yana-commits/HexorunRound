@@ -57,7 +57,7 @@ public class LevelParameters
     {
         if (koeff > 1)
         {
-            zWidth = (int)(zWidth + zWidth * koeff * 0.3f);
+            zWidth = (int)(zWidth + zWidth * (koeff-1)* 0.3f);
         }
         else 
         {

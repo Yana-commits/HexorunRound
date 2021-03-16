@@ -139,7 +139,7 @@ public class Controller : MonoBehaviour
         float xOffset = level.XOffset;
 
         float playerX = xHeight * xOffset / 2;
-        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f, 2.5f), Quaternion.identity);
+        var player = (GameObject)Instantiate(Resources.Load("Prefabs/Player"), new Vector3(playerX, 0.03f, 3f), Quaternion.identity);
         camera.player = player.transform;
     }
 

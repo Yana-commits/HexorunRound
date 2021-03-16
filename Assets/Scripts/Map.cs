@@ -157,7 +157,7 @@ public class Map : MonoBehaviour
         get
         {
             yield return new Vector3Int(1, -1, 0);
-            yield return new Vector3Int(1, 0, -1);
+            yield return new Vector3Int(1, -2, 1);
             yield return new Vector3Int(0, 1, -1);
 
             yield return new Vector3Int(-1, 1, 0);
