@@ -11,7 +11,9 @@ public class Map : MonoBehaviour
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
     float[] minusePoints = new float[10] { -3, -3, -3, -3, -3, -3, -3, -3, -3, -3 };
 
-
+    int gridSize = 10;
+    float hexLength = 0.9755461f;
+    
     private float holesNomber;
 
     private Vector2Int size;
@@ -26,66 +28,134 @@ public class Map : MonoBehaviour
     void Start()
     {
         holesNomber = HUD.Instance.holes.value;
-        Debug.Log(size);
+        
     }
 
     private void Initializie(LevelParameters level, Hex hexPrefab)
     {
+        var hexHeightDistance = (hexLength*2);
+        var hexWidthDistance = Mathf.Sqrt(3) * hexLength ;
+        var rowlengthAddition = 0;
+
+        //size = new Vector2Int(level.ZWidth, level.XHeight);
+
+        var gridStart = new Vector3(0, 0, 0);
+        //float z = 0;
+        //float x = 0;
+
+        //for (int r = 0; r < (gridSize * 2) + 1 - Mathf.Abs(gridSize - r); r++)
+        //{
+        //    for (int q = 0; q < gridSize - r; q++)
+        //    {
+        //        var position = new Vector3(r, 0, q + z);
+        //        var hex_go = Instantiate(hexPrefab, position, Quaternion.identity);
 
 
-        size = new Vector2Int(level.ZWidth, level.XHeight);
+        //        hex_go.name = "Hex_" + q + "_" + r;
+        //    }
 
-        float xOffset = level.XOffset;
-        float zOffset = level.ZOffset;
+        //    //if (r >= gridSize - 1)
+        //    //{
 
-        for (int x = 0; x < size.y; x++)
+        //    //    y += hexWidthDistance / 2 ;
+        //    //   x += (hexHeightDistance * 0.75f) / 2 ;
+        //    //}
+        //    //else
+        //    //{
+        //    x += hexWidthDistance / 2;
+        //    z += (hexHeightDistance * 0.75f) / 2 / 1.7f;
+        //    //}
+        //}
+
+        for (int q = -gridSize; q <= gridSize; q++)
         {
-            for (int y = 0; y < size.x; y++)
+            int r1 = Mathf.Max(-gridSize, -q - gridSize);
+            int r2 = Mathf.Min(gridSize, -q + gridSize);
+            for (int r = r1; r <= r2; r++)
             {
-                float yPos = y * zOffset;
+                Vector3Int cube = new Vector3Int(q, r, -q - r);
+                 Vector2Int n = new Vector2Int(q, r);
+                var hex_go = Instantiate(hexPrefab);
+                hex_go.transform.SetParent(transform);
 
-                if (x % 2 == 1)
-                {
-                    yPos += zOffset / 2f;
-                }
 
-                float xPos = x * xOffset;
+                hex_go.transform.localPosition = Hexagonal.Cube.HexToPixel(
+                    cube,
+                    Vector2.one * hexLength/2f); ;
 
-                var hex_go = Instantiate(hexPrefab, new Vector3(xPos, 0, yPos), Quaternion.identity);
-                hex_go.name = "Hex_" + x + "_" + y;
-                hex_go.cube_coord = ToCube(x, y);
+                hex_go.index =  Hexagonal.Offset.QFromCube(cube);
+                hex_go.name = "Hex_" + q + "_" + r;
+                hex_go.cube_coord = cube;
 
-                hex_go.neihbours = GetNeighbour(hex_go.cube_coord);
+                Debug.Log($"{cube}");
+                Debug.Log($"{n}");
+                Debug.Log($"{hex_go.index}");
+
+            }
+        }
+
+        return;
+        for (int r = 0; r < (gridSize * 2) - 1; r++)
+        {
+            for (int q = 0; q < gridSize + rowlengthAddition; q++)
+            {
+
+                var position = gridStart;
+
+                var hex_go = Instantiate(hexPrefab, position, Quaternion.identity);
+
+
+                hex_go.transform.position = new Vector3(position.z, 0, (position.x += (hexWidthDistance / 2 * q)));
+                hex_go.index = new Vector2Int(q, r);
+                hex_go.name = "Hex_" + q + "_" + r;
+                hex_go.cube_coord = Hexagonal.Offset.RToCube(hex_go.index);
+
+                //hex_go.neihbours = GetNeighbour(hex_go.cube_coord);
                 //Debug.Log($"{hex_go.neihbours.ToArray()[1]}");
 
                 hex_go.transform.SetParent(transform);
                 hexes.Add(hex_go);
             }
+
+            if (r >= gridSize - 1)
+            {
+                rowlengthAddition -= 1;
+                gridStart.z += hexWidthDistance / 2 / 1.15f;
+                gridStart.x += (hexHeightDistance * 0.75f) / 2 / 1.7f;
+            }
+            else
+            {
+                rowlengthAddition += 1;
+                gridStart.z += hexWidthDistance / 2 / 1.15f;
+                gridStart.x -= (hexHeightDistance * 0.75f) / 2 / 1.7f;
+            }
         }
 
-        var target = hexes
-            .Where(h => h.cube_coord.z > size.x - 10)
-            .OrderBy(v => Random.value)
-            .First();
+        //var target = hexes
+        //    .Where(h => h.cube_coord.z > size.x - 10)
+        //    .OrderBy(v => Random.value)
+        //    .First();
 
 
-        var rend = target.GetComponent<Renderer>();
-        rend.materials = new[] { null, redMaterial, redMaterial };
-        target.end = false;
+        //var rend = target.GetComponent<Renderer>();
+        //rend.materials = new[] { null, redMaterial, redMaterial };
+        //target.end = false;
     }
 
     private void FixedUpdate()
     {
-        MooveHexes();
+        //MooveHexes();
     }
 
     public static Map Create(LevelParameters level, Hex hexPrefab)
     {
         Vector3 fieldPosition = Vector3.zero;
         var mapPrefab = Resources.Load<Map>("Prefabs/Map");
+        
 
         var map = Instantiate(mapPrefab, fieldPosition, Quaternion.identity);
         map.Initializie(level, hexPrefab);
+        
         return map;
     }
 

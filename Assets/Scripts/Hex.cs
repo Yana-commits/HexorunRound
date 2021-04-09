@@ -13,6 +13,7 @@ public class Hex : MonoBehaviour
     public Vector3Int cube_coord;
     public HexState state = HexState.NONE;
     public IEnumerable<Vector3Int> neihbours;
+    public Vector2Int index;
 
 
 
@@ -30,16 +31,16 @@ public class Hex : MonoBehaviour
         {
             if (player)
             {
-                if (!end)
-                {
-                    Controller.Instance.Victory();
-                }
-                for (int i = 0; i < neihbours.ToArray().Length; i++)
-                {
-                    Debug.Log("Player " + cube_coord + " Neihbour  " +i +" "+ neihbours.ToArray()[i]);
-                }
+                //if (!end)
+                //{
+                //    Controller.Instance.Victory();
+                //}
+                //for (int i = 0; i < neihbours.ToArray().Length; i++)
+                //{
+                //    Debug.Log("Player " + cube_coord + " Neihbour  " +i +" "+ neihbours.ToArray()[i]);
+                //}
              
-                permission = false;
+                //permission = false;
             }
         }
     }
