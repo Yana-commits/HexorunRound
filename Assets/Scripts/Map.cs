@@ -87,9 +87,9 @@ public class Map : MonoBehaviour
                 hex_go.name = "Hex_" + q + "_" + r;
                 hex_go.cube_coord = cube;
 
-                Debug.Log($"{cube}");
-                Debug.Log($"{n}");
-                Debug.Log($"{hex_go.index}");
+                //Debug.Log($"{cube}");
+                //Debug.Log($"{n}");
+                //Debug.Log($"{hex_go.index}");
 
             }
         }
