@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class Map : MonoBehaviour
 {
@@ -18,12 +19,7 @@ public class Map : MonoBehaviour
 
     private Vector2Int size;
 
-    public Hex this[Vector3Int index] => hexes[ConvertToArrayIndex(index)];
-    public Hex this[Vector2Int index] => hexes[ConvertToArrayIndex(index)];
-
-    private int ConvertToArrayIndex(Vector3Int index) => ConvertToArrayIndex(ConvertCoordToAxial(index));
-    private int ConvertToArrayIndex(Vector2Int index) => index.x * size.x + index.y;
-
+   
 
     void Start()
     {
@@ -87,12 +83,74 @@ public class Map : MonoBehaviour
                 hex_go.name = "Hex_" + q + "_" + r;
                 hex_go.cube_coord = cube;
 
+                hexes.Add(hex_go);
+
                 //Debug.Log($"{cube}");
                 //Debug.Log($"{n}");
                 //Debug.Log($"{hex_go.index}");
 
             }
         }
+
+        var target = hexes
+           .Where(h => h.cube_coord == new Vector3Int(0,0,0))
+           .First();
+
+        var stopIndexes = GetNeighbour(target.cube_coord);
+
+        RenderColor(target);
+        target.end = false;
+
+       
+
+        var targetNeighbours = new List<Hex>();
+        foreach (var item in hexes)
+        {
+            foreach (var index in stopIndexes)
+            {
+                if (item.cube_coord == index)
+                {
+                    RenderColor(item);
+                    item.end = false;
+                    item.permission = false;
+                    targetNeighbours.Add(item);
+                }
+            }
+        }
+
+         var zonesCenters =  new List<Hex>();
+        foreach (var item in hexes)
+        {
+            foreach (var index in zones(gridSize))
+            {
+                if (item.cube_coord == index)
+                {
+                    RenderColor(item);
+                    item.permission = false;
+                    zonesCenters.Add(item);
+                }
+            }
+        }
+
+        GetZoneNeighbour(zonesCenters, targetNeighbours);
+
+
+        //foreach (var item in hexes)
+        //{
+        //    foreach (var index in GetZoneNeighbour(zonesCenters))
+        //    {
+
+        //        if (item.cube_coord == index)
+        //        {
+        //            RenderColor(item);
+        //            item.permission = false;
+        //            zonesCenters.Add(item);
+        //        }
+        //    }
+        //}
+
+
+
 
         return;
         for (int r = 0; r < (gridSize * 2) - 1; r++)
@@ -131,10 +189,7 @@ public class Map : MonoBehaviour
             }
         }
 
-        //var target = hexes
-        //    .Where(h => h.cube_coord.z > size.x - 10)
-        //    .OrderBy(v => Random.value)
-        //    .First();
+       
 
 
         //var rend = target.GetComponent<Renderer>();
@@ -142,9 +197,11 @@ public class Map : MonoBehaviour
         //target.end = false;
     }
 
+   
+
     private void FixedUpdate()
     {
-        //MooveHexes();
+        MooveHexes();
     }
 
     public static Map Create(LevelParameters level, Hex hexPrefab)
@@ -166,12 +223,14 @@ public class Map : MonoBehaviour
             changeTime = changeTime - 1 * Time.deltaTime;
             if (changeTime <= 0)
             {
-                var ignorHexArray = hexes
-                    .Where(h => h.permission == false || !h.end).
-                    SelectMany(h => GetNeighbour(h.cube_coord))
-                    .Select(ind => this[ind]);
+                //var ignorHexArray = hexes
+                //    .Where(h => h.permission == false || !h.end);
+                //SelectMany(h => GetNeighbour(h.cube_coord))
+                //.Select(ind => this[ind]);
 
-                ignorHexArray = hexes.Where(h => h.permission == false || !h.end).Union(ignorHexArray);
+
+
+              var  ignorHexArray = hexes.Where(h => h.permission == false || !h.end);
 
                 foreach (var item in ignorHexArray)
                 {
@@ -188,7 +247,7 @@ public class Map : MonoBehaviour
 
                 for (int i = 0; i < holesNomber; i++)
                 {
-                    int index = Random.Range(0, list.Count);
+                    int index = UnityEngine.Random.Range(0, list.Count);
 
                     if (list[index].state != HexState.NONE)
                     {
@@ -205,29 +264,13 @@ public class Map : MonoBehaviour
         }
     }
 
-    static Vector3Int ToCube(int xPos, int yPos)
-    {
-        var x = xPos;
-        var z = yPos;
-        var y = -x - z;
-
-        return new Vector3Int(x, y, z);
-    }
-
-    private Vector2Int ConvertCoordToAxial(Vector3Int index)
-    {
-        var q = index.x;
-        var r = index.z;
-        return new Vector2Int(q, r);
-    }
-
-
+  
     private IEnumerable<Vector3Int> _directions
     {
         get
         {
             yield return new Vector3Int(1, -1, 0);
-            yield return new Vector3Int(1, -2, 1);
+            yield return new Vector3Int(1, 0, -1);
             yield return new Vector3Int(0, 1, -1);
 
             yield return new Vector3Int(-1, 1, 0);
@@ -242,4 +285,50 @@ public class Map : MonoBehaviour
     public IEnumerable<Vector3Int> GetNeighbour(Vector3Int index)
         => _directions.Select(v => index + v);
 
+
+    public void RenderColor(Hex target)
+    {
+        var rend = target.GetComponent<Renderer>();
+        rend.materials = new[] { null, redMaterial, redMaterial };
+    }
+
+    private IEnumerable<Vector3Int> zones(int gridSize)
+    {
+        var m = (int)gridSize / 2;
+
+            yield return new Vector3Int(m, -m, 0);
+            yield return new Vector3Int(m, 0, -m);
+            yield return new Vector3Int(0, m, -m);
+
+            yield return new Vector3Int(-m, m, 0);
+            yield return new Vector3Int(-m, 0, m);
+            yield return new Vector3Int(0, -m, m);
+    }
+
+
+    private void GetZoneNeighbour(List<Hex> zones, List<Hex> mmm)
+    {
+       
+
+        foreach (var zzz in zones)
+        {
+            var stopZone = GetNeighbour(zzz.cube_coord);
+            foreach (var item in hexes)
+            {
+                foreach (var index in stopZone)
+                {
+
+                    if (item.cube_coord == index)
+                    {
+                        RenderColor(item);
+                        item.permission = false;
+                        mmm.Add(item);
+                    }
+                }
+            }
+
+        }
+       
+        
+    }
 }
