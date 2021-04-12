@@ -8,8 +8,8 @@ public class Map : MonoBehaviour
 {
     [SerializeField] Material redMaterial;
     public List<Hex> hexes = new List<Hex>();
-    private float changeTime = 1;
-    float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0.5f, 1 };
+    private float changeTime = 5;
+    float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     float[] minusePoints = new float[10] { -3, -3, -3, -3, -3, -3, -3, -3, -3, -3 };
 
     int gridSize = 10;
@@ -238,26 +238,34 @@ public class Map : MonoBehaviour
                 }
 
                 var tt = hexes.Except(ignorHexArray);
+
                 foreach (var item in tt)
                 {
-                    item.Move(points);
-                }
-
-                var list = hexes.Where(x => x.state == HexState.NONE).Except(ignorHexArray).ToList();
-
-                for (int i = 0; i < holesNomber; i++)
-                {
-                    int index = UnityEngine.Random.Range(0, list.Count);
-
-                    if (list[index].state != HexState.NONE)
+                    if (item.state != HexState.DOWN)
                     {
-                        i--;
+                        item.Move(minusePoints);
                     }
-                    else
+                    else 
                     {
-                        list[index].Move(minusePoints);
+                        item.Move(points);
                     }
                 }
+
+                //var list = hexes.Where(x => x.state == HexState.NONE).Except(ignorHexArray).ToList();
+
+                //for (int i = 0; i < holesNomber; i++)
+                //{
+                //    int index = UnityEngine.Random.Range(0, list.Count);
+
+                //    if (list[index].state != HexState.NONE)
+                //    {
+                //        i--;
+                //    }
+                //    else
+                //    {
+                //        list[index].Move(minusePoints);
+                //    }
+                //}
                 //changeTime = HUD.Instance.changesTime.value;
                 changeTime = 2;
             }
