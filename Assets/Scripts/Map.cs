@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
     float[] points = new float[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     float[] minusePoints = new float[10] { -3, -3, -3, -3, -3, -3, -3, -3, -3, -3 };
 
-    int gridSize = 10;
+    int gridSize = 30;
     float hexLength = 0.9755461f;
     
     private float holesNomber;
@@ -101,34 +101,26 @@ public class Map : MonoBehaviour
         RenderColor(target);
         target.end = false;
 
-       
-
         var targetNeighbours = new List<Hex>();
         foreach (var item in hexes)
         {
-            foreach (var index in stopIndexes)
+            if (stopIndexes.Contains(item.cube_coord))
             {
-                if (item.cube_coord == index)
-                {
                     RenderColor(item);
                     item.end = false;
                     item.permission = false;
                     targetNeighbours.Add(item);
-                }
             }
         }
 
          var zonesCenters =  new List<Hex>();
         foreach (var item in hexes)
         {
-            foreach (var index in zones(gridSize))
+            if(zones(gridSize).Contains(item.cube_coord))
             {
-                if (item.cube_coord == index)
-                {
                     RenderColor(item);
                     item.permission = false;
                     zonesCenters.Add(item);
-                }
             }
         }
 
@@ -313,30 +305,20 @@ public class Map : MonoBehaviour
             yield return new Vector3Int(0, -m, m);
     }
 
-
     private void GetZoneNeighbour(List<Hex> zones, List<Hex> mmm)
     {
-       
-
         foreach (var zzz in zones)
         {
             var stopZone = GetNeighbour(zzz.cube_coord);
             foreach (var item in hexes)
             {
-                foreach (var index in stopZone)
+                if(stopZone.Contains(item.cube_coord))
                 {
-
-                    if (item.cube_coord == index)
-                    {
                         RenderColor(item);
                         item.permission = false;
                         mmm.Add(item);
-                    }
                 }
             }
-
         }
-       
-        
     }
 }
